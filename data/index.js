@@ -3,6 +3,8 @@ const streamCsv = require('./lib/csv-stream')
 const log = require('./lib/logger')
 const getProgressBar = require('./lib/progress')
 const esClient = require('./lib/elastic-client')
+const { validateLatLon } = require('./lib/geo')
+
 
 const NUM_DOCS_ESTIMATE = 2636605
 const INDEX = process.env.ELASTIC_INDEX
@@ -10,6 +12,20 @@ const INDEX_SETTINGS = {}
 const INDEX_MAPPINGS = {
   _doc: {
     properties: {
+      suggest : {
+        type : "completion",
+        contexts: [
+          {
+            name: "status",
+            type: "category"
+          },
+          {
+            name: "location",
+            type: "geo",
+            precision: 6
+          }
+        ]
+      },
       pcd: {
         type: "keyword"
       },
@@ -146,6 +162,15 @@ const bulkOps = docs => {
       log.error(doc)
       return agg
     }
+    const geo = validateLatLon(doc.lat, doc.long)
+    doc.suggest = {
+      input: [doc.pcds, doc.pcds.replace(/ /g, '')],
+      contexts: {
+        status: doc.doterm ? ['inactive'] : ['active'],
+        location: geo ? [geo] : [],
+      },
+      weight: 1
+    }
     return [
       ...agg,
       {
@@ -173,7 +198,7 @@ const bulkPromise = ops => {
           return reject(err)
         }
         if (res.errors) {
-          const errItems = res.items.filter(x => x.update && x.update.error).map(x => x.update.error) // assume ops were type 'update'
+          const errItems = res.items.filter(x => x.index && x.index.error).map(x => x.index.error) // assume ops were type 'update'
           return reject(errItems)
         }
         return resolve(res)

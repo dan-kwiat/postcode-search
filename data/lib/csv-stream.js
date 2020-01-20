@@ -9,6 +9,9 @@ const arrToJson = (header, arr) => {
 }
 
 const dequote = x => {
+  if (x === '""') {
+    return null
+  }
   if (x[0] === '"' && x[x.length-1] === '"') {
     return x.substring(1, x.length-1)
   }
