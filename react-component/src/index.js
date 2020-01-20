@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import debounce from 'lodash.debounce'
 import FilterSuggest, { HelperText, Input, TextField } from 'filter-suggest'
 import svgSearch from './search.svg'
+import 'filter-suggest/es/index.css'
 
 const DEBOUNCE_TIME = 100
 const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
