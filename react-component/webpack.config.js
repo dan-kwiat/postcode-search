@@ -4,6 +4,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
   template: path.join(__dirname, 'examples/src/index.html'),
   filename: './index.html'
 })
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: path.join(__dirname, 'examples/src/index.js'),
@@ -16,7 +17,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
@@ -29,7 +38,10 @@ module.exports = {
       },
     ]
   },
-  plugins: [htmlWebpackPlugin],
+  plugins: [
+    htmlWebpackPlugin,
+    new MiniCssExtractPlugin(),
+  ],
   resolve: {
     extensions: ['.js', '.jsx']
   },
