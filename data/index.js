@@ -1,6 +1,5 @@
 require('dotenv').config()
-const streamBatchPromise = require('stream-batch-promise')
-const createCsvStream = require('./lib/csv-stream')
+const streamCsv = require('./lib/csv-stream')
 const log = require('./lib/logger')
 const getProgressBar = require('./lib/progress')
 const esClient = require('./lib/elastic-client')
@@ -141,7 +140,12 @@ const INDEX_MAPPINGS = {
 const bulkOps = docs => {
   return docs.reduce((agg, doc) => {
     const _id = doc.pcd
-    if (!_id) throw new Error('Bulk op is missing _id property')
+    if (!_id) {
+      // throw new Error('Bulk op is missing _id property')
+      log.error('Bulk op is missing _id property')
+      log.error(doc)
+      return agg
+    }
     return [
       ...agg,
       {
@@ -197,19 +201,25 @@ async function esIndex() {
   try {
     const progressBar = getProgressBar('Starting stream')
     progressBar.start(NUM_DOCS_ESTIMATE, 0)
-    const objectStream = createCsvStream(process.env.NSPL_CSV)
 
-    const totalCount = await streamBatchPromise(
-      objectStream,
-      x => x,
+    const filePath = process.env.NSPL_CSV
+    const batchSize = process.env.ELASTIC_BULK_BATCH_SIZE
+
+    if (!filePath || !batchSize) {
+      throw new Error('Missing environment variable')
+    }
+
+    const totalCount = await streamCsv(
+      filePath,
+      batchSize,
       (docs, counter) => {
         progressBar.update(counter)
         const ops = bulkOps(docs)
         return bulkPromise(ops)
-      },
-      { batchSize: 1000 },
+      }
     )
-    progressBar.update(NUM_DOCS_ESTIMATE)
+
+    progressBar.update(totalCount)
     progressBar.stop()
     log.info(`Successfully indexed ${totalCount} documents`)
   } catch(e) {

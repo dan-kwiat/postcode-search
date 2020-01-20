@@ -1,7 +1,5 @@
 const fs = require('fs')
 const readline = require('readline')
-const stream = require('stream')
-const { parse } = require('csv-string')
 
 const arrToJson = (header, arr) => {
   return header.reduce((agg, x, i) => ({
@@ -10,34 +8,59 @@ const arrToJson = (header, arr) => {
   }), {})
 }
 
-const createCsvStream = file => {
-  const outstream = new stream.Transform({
-    writableObjectMode: true,
-    readableObjectMode: true,
-    transform(chunk, encoding, callback) {
-      callback(null, chunk);
-    }
-  })
+const dequote = x => {
+  if (x[0] === '"' && x[x.length-1] === '"') {
+    return x.substring(1, x.length-1)
+  }
+  const num = parseFloat(x)
+  return isNaN(num) ? x : num
+}
+
+const streamCsv = (file, batchSize, batchHandler) => {
   const rl = readline.createInterface({
     input: fs.createReadStream(file),
     output: null,
     terminal: false
   })
-  let i = 0
+  let counter = 0
+  let items = []
   let header
-  rl.on('line', x => {
-    const arr = parse(x, ',', '"')[0]
-    if (i === 0) {
-      header = arr
-    } else {
-      outstream.write(arrToJson(header, arr))
-    }
-    i++
+
+  return new Promise((resolve, reject) => {
+    rl.on('line', x => {
+      counter++
+      const arr = x.split(',').map(dequote) // this crude parsing should be ok for NSPL csv
+      if (counter === 1) {
+        header = arr
+        return
+      }
+      items.push(arrToJson(header, arr))
+      if (counter % batchSize === 0) {
+        rl.pause()
+        batchHandler(items, counter)
+        .then(() => {
+          items = []
+          rl.resume()
+        })
+        .catch(reject)
+      }
+    })
+
+    rl.on('close', () => {
+      if (counter % batchSize !== 0) {
+        batchHandler(items, counter)
+        .then(() => {
+          items = []
+          resolve(counter)
+        })
+        .catch(reject)
+      } else {
+        resolve(counter)
+      }
+    })
+
+    // handle error event?
   })
-  rl.on('close', () => {
-    outstream.end()
-  })
-  return outstream
 }
 
-module.exports = createCsvStream
+module.exports = streamCsv

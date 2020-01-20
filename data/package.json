@@ -1,22 +1,17 @@
 {
   "name": "postcode-search-data",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js | bunyan"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.12",
     "cli-progress": "^3.5.0",
-    "csv-string": "^3.1.7",
     "dotenv": "^8.2.0",
-    "elasticsearch": "^16.6.0",
-    "stream-batch-promise": "^1.1.1"
-  },
-  "scripts": {
-    "start": "node index.js | bunyan"
+    "elasticsearch": "^16.6.0"
   }
 }
