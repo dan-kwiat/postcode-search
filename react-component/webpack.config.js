@@ -39,8 +39,8 @@ module.exports = {
     ]
   },
   plugins: [
-    htmlWebpackPlugin,
     new MiniCssExtractPlugin(),
+    htmlWebpackPlugin,
   ],
   resolve: {
     extensions: ['.js', '.jsx']
