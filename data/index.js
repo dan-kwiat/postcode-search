@@ -14,6 +14,8 @@ const INDEX_MAPPINGS = {
     properties: {
       suggest : {
         type : "completion",
+        analyzer: "keyword",
+        // preserve_separators: false,
         contexts: [
           {
             name: "status",
@@ -163,6 +165,7 @@ const bulkOps = docs => {
       return agg
     }
     const geo = validateLatLon(doc.lat, doc.long)
+    // todo: make suggest an array to give the stripped postcode a lower weight?
     doc.suggest = {
       input: [doc.pcds, doc.pcds.replace(/ /g, '')],
       contexts: {
