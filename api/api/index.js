@@ -46,7 +46,11 @@ module.exports = async (req, res) => {
       ignore: [404],
       maxRetries: 3
     })
-    res.send({ data: result.suggest[suggestionName][0].options.map(x => ({ id: x._source.pcds })) })
+    const data = result.suggest[suggestionName][0].options.map(x => ({
+      id: x._source.pcds,
+      lsoa11: x._source.lsoa11,
+    }))
+    res.send({ data })
   } catch(e) {
     log.error(e)
     res.send({ errors: [e.message || 'Failed to search postcodes'] })
