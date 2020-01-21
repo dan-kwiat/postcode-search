@@ -170,7 +170,7 @@ const bulkOps = docs => {
       input: [doc.pcds, doc.pcds.replace(/ /g, '')],
       contexts: {
         status: doc.doterm ? ['inactive'] : ['active'],
-        location: geo ? [geo] : [],
+        location: !doc.doterm && geo ? [geo] : [],
       },
       weight: 1
     }
