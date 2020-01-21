@@ -6,23 +6,35 @@ const log = require('../lib/logger')
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 
-  const {
-    query: { variables }
-  } = req
-
-  let q
+  let variables
   try {
-    q = JSON.parse(variables).q
-    if (!q || typeof q !== 'string') throw ''
-    log.info(`Searching for postcode '${q}'`)
+    variables = JSON.parse(req.query.variables)
   } catch(e) {
     log.error(e)
     return res.send({ errors: [
-      `Failed to find valid JSON 'variables' with 'q' property`
+      `Failed to find valid JSON 'variables' in the query string`
+    ]})
+  }
+
+  const { q, boostGeo } = variables
+  if (!q || typeof q !== 'string') {
+    return res.send({ errors: [
+      `Failed to find valid query 'q' in the variables object`
     ]})
   }
 
   try {
+    const contexts = {
+      status: ['active'],
+    }
+    if (boostGeo) {
+      contexts.location = {
+        ...boostGeo,
+        boost: 2,
+        precision: 6,
+      }
+    }
+
     const suggestionName = 'postcode_suggestion'
     const result = await esClient.search({
       index: process.env.ELASTIC_INDEX,
@@ -33,11 +45,9 @@ module.exports = async (req, res) => {
           [suggestionName]: {
             prefix : q.replace(/  +/g, ' ').toUpperCase(),
             completion : {
-              field : "suggest",
+              field : 'suggest',
               size: 10,
-              contexts: {
-                status: ["active"],
-              },
+              contexts
             },
           },
         },
