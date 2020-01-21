@@ -6,6 +6,8 @@ import svgSearch from './search.svg'
 import './index.css'
 
 const DEBOUNCE_TIME = 100
+const MAX_QUERY_LENGTH = 10
+
 const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
 
 const getData = (apiUrl, apiKey, variables) => {
@@ -16,7 +18,7 @@ const errorMessage = ({ error, empty, loading, searchTerm }) => {
   if (error) {
     return 'Oops something went wrong, please try again'
   }
-  if (empty && searchTerm.length > 1 && !loading) {
+  if (empty && searchTerm.length > 0 && !loading) {
     return `Sorry we can't find anything matching '${searchTerm}'`
   }
   return null
@@ -43,7 +45,7 @@ const PostcodeSearch = ({
   const [loading, setLoading] = useState(false)
 
   const onInputValueChange = x => {
-    const value = x ? x.toUpperCase() : ''
+    const value = x ? x.toUpperCase().substring(0,MAX_QUERY_LENGTH) : ''
     setInputValue(value)
     applyDebounced(setDebouncedInputValue, value)
   }
@@ -51,7 +53,14 @@ const PostcodeSearch = ({
   useEffect(() => {
     let stale = false
     if (debouncedInputValue) {
-      const variables = { q: debouncedInputValue, active: true }
+      const variables = {
+        q: debouncedInputValue,
+        // boostGeo: {
+        //   lat: 51.567361,
+        //   lon: -0.070315,
+        // },
+        active: true
+      }
       setLoading(true)
       getData(apiUrl, apiKey, variables)
         .then(({ data, errors }) => {
