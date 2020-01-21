@@ -5,7 +5,7 @@ const validateLat = x => {
   if (Math.abs(x) > 90) {
     return null
   }
-  return null
+  return x
 }
 
 const validateLon = x => x
