@@ -2,6 +2,12 @@ require('dotenv').config() // only do this if not production?
 const esClient = require('../lib/elastic-client')
 const log = require('../lib/logger')
 
+const MAX_QUERY_LENGTH = 10
+
+const parseQuery = x => {
+  return x.replace(/  +/g, ' ').toUpperCase().substring(0,MAX_QUERY_LENGTH)
+}
+
 // Autocomplete Postcode:
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -43,7 +49,7 @@ module.exports = async (req, res) => {
       body: {
         suggest: {
           [suggestionName]: {
-            prefix : q.replace(/  +/g, ' ').toUpperCase(),
+            prefix: parseQuery(q),
             completion : {
               field : 'suggest',
               size: 10,
