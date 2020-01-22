@@ -1,4 +1,3 @@
-require('dotenv').config() // only do this if not production?
 const esClient = require('../lib/elastic-client')
 const log = require('../lib/logger')
 
