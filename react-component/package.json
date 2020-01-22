@@ -7,7 +7,7 @@
     "prepublishOnly": "yarn transpile",
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "transpile": "babel src -d dist --copy-files"
+    "transpile": "rm -rf dist && babel src -d dist --copy-files"
   },
   "author": "",
   "license": "ISC",
