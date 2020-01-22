@@ -2,9 +2,10 @@
   "name": "postcode-search-data",
   "version": "1.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "download.js",
   "scripts": {
-    "upload": "node index.js | bunyan"
+    "download": "node download.js | bunyan",
+    "upload": "node upload.js | bunyan"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +13,8 @@
     "bunyan": "^1.8.12",
     "cli-progress": "^3.5.0",
     "dotenv": "^8.2.0",
-    "elasticsearch": "^16.6.0"
+    "elasticsearch": "^16.6.0",
+    "node-fetch": "^2.6.0",
+    "unzipper": "^0.10.7"
   }
 }

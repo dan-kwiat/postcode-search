@@ -1,6 +1,9 @@
 .DS_Store
 
 *.csv
+*.xlsx
+*.pdf
+*.txt
 
 # Logs
 logs
