@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js | bunyan"
+    "upload": "node index.js | bunyan"
   },
   "author": "",
   "license": "ISC",

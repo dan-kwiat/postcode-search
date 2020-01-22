@@ -5,6 +5,6 @@
 - `yarn`
 - `cp .env-example .env` and set appropriate values in `.env`
 
-## Indexing
+## Uploading to Elasticsearch Index
 
-- `yarn start`
+- `yarn upload`
