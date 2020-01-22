@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import debounce from 'lodash.debounce'
 import FilterSuggest, { HelperText, Input, TextField } from 'filter-suggest'
 import SearchSVG from './search.svg'
-import './index.css'
 
 const DEBOUNCE_TIME = 100
 const MAX_QUERY_LENGTH = 10
