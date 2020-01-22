@@ -8,6 +8,10 @@
 
 - `yarn add postcode-search`
 
+Make sure you have the peer dependencies installed too:
+
+- `yarn add react prop-types`
+
 #### Importing Component
 
 ```js
