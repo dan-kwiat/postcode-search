@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "now",
+    "start": "now dev | yarn bunyan",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -1,0 +1,10 @@
+{
+  "name": "postcode-search",
+  "version": 2,
+  "env": {
+    "ELASTIC_HOST": "@t2s-postcodes-elastic-host",
+    "ELASTIC_USERNAME": "@t2s-postcodes-elastic-username",
+    "ELASTIC_PASSWORD": "@t2s-postcodes-elastic-password",
+    "ELASTIC_INDEX": "@t2s-postcodes-elastic-index"
+  }
+}
