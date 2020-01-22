@@ -1,10 +1,16 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
-  template: path.join(__dirname, 'examples/src/index.html'),
-  filename: './index.html'
-})
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+  filename: './index.html',
+  template: path.join(__dirname, 'examples/src/index.html'),
+})
+
+const miniCssExtractPlugin = new MiniCssExtractPlugin({
+  filename: 'index.css',
+  ignoreOrder: false,
+})
 
 module.exports = {
   entry: path.join(__dirname, 'examples/src/index.js'),
@@ -26,21 +32,12 @@ module.exports = {
           },
           'css-loader',
         ],
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/i,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-          },
-        }],
-      },
+      }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin(),
     htmlWebpackPlugin,
+    miniCssExtractPlugin,
   ],
   resolve: {
     extensions: ['.js', '.jsx']

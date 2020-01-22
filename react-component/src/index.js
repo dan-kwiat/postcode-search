@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash.debounce'
 import FilterSuggest, { HelperText, Input, TextField } from 'filter-suggest'
-import svgSearch from './search.svg'
+import SearchSVG from './search.svg'
 import './index.css'
 
 const DEBOUNCE_TIME = 100
@@ -102,7 +102,7 @@ const PostcodeSearch = ({
         inputValue={inputValue}
         items={data.map(mapItem)}
         label={label}
-        leadingIcon={<img width={24} height={24} src={svgSearch} />}
+        leadingIcon={<SearchSVG />}
         loading={loading}
         menuClassName={menuClassName}
         onBlur={onBlur}
