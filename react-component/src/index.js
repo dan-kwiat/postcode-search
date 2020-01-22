@@ -129,7 +129,7 @@ PostcodeSearch.propTypes = {
   textFieldClassName: PropTypes.string,
 }
 PostcodeSearch.defaultProps = {
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://postcode-search.now.sh/api',
   label: 'Postcode',
   mapItem: ({ id, lsoa11 }) => ({
     id,
