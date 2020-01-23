@@ -1,55 +1,29 @@
 const fs = require('fs')
-const readline = require('readline')
-
-const arrToJson = (header, arr) => {
-  return header.reduce((agg, x, i) => ({
-    ...agg,
-    [x]: arr[i],
-  }), {})
-}
-
-const dequote = x => {
-  if (x === '""') {
-    return null
-  }
-  if (x[0] === '"' && x[x.length-1] === '"') {
-    return x.substring(1, x.length-1)
-  }
-  const num = parseFloat(x)
-  return isNaN(num) ? x : num
-}
+const csv = require('csv-parser')
 
 const streamCsv = (file, batchSize, batchHandler) => {
-  const rl = readline.createInterface({
-    input: fs.createReadStream(file),
-    output: null,
-    terminal: false
-  })
+
+  const readStream = fs.createReadStream(file)
+  const csvStream = readStream.pipe(csv())
+
   let counter = 0
   let items = []
-  let header
 
   return new Promise((resolve, reject) => {
-    rl.on('line', x => {
+    csvStream.on('data', jsonObj => {
       counter++
-      const arr = x.split(',').map(dequote) // this crude parsing should be ok for NSPL csv
-      if (counter === 1) {
-        header = arr
-        return
-      }
-      items.push(arrToJson(header, arr))
+      items.push(jsonObj)
       if (counter % batchSize === 0) {
-        rl.pause()
+        readStream.pause()
         batchHandler(items, counter)
         .then(() => {
           items = []
-          rl.resume()
+          readStream.resume()
         })
         .catch(reject)
       }
     })
-
-    rl.on('close', () => {
+    csvStream.on('end', () => {
       if (counter % batchSize !== 0) {
         batchHandler(items, counter)
         .then(() => {
@@ -61,7 +35,6 @@ const streamCsv = (file, batchSize, batchHandler) => {
         resolve(counter)
       }
     })
-
     // handle error event?
   })
 }
