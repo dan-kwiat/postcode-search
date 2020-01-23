@@ -35,7 +35,7 @@ const streamCsv = (file, batchSize, batchHandler) => {
         resolve(counter)
       }
     })
-    // handle error event?
+    csvStream.on('error', reject)
   })
 }
 
