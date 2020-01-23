@@ -7,23 +7,32 @@ const { validateLatLon } = require('./lib/geo')
 
 const NUM_DOCS_ESTIMATE = 2636605
 
-function bulkIndexOps ({ indexName, docs }) {
-  return docs.reduce((agg, doc) => {
-    const _id = doc.pcd
+function postcodeDocParser (jsonObj) {
+  const geo = validateLatLon(jsonObj.lat, jsonObj.long)
+  return {
+    _id: jsonObj.pcd,
+    doc: {
+      ...jsonObj,
+      // todo: make suggest an array to give the stripped postcode a lower weight?
+      suggest: {
+        input: [jsonObj.pcds, jsonObj.pcds.replace(/ /g, '')],
+        contexts: {
+          status: jsonObj.doterm ? ['inactive'] : ['active'],
+          location: !jsonObj.doterm && geo ? [geo] : [],
+        },
+        weight: 1
+      }
+    }
+  }
+}
+
+function bulkIndexOps ({ indexName, docs, docParser }) {
+  return docs.reduce((agg, rawDoc) => {
+    const { _id, doc } = docParser(rawDoc)
     if (!_id) {
       log.error('Bulk op is missing _id property')
       log.error(doc)
       return agg
-    }
-    const geo = validateLatLon(doc.lat, doc.long)
-    // todo: make suggest an array to give the stripped postcode a lower weight?
-    doc.suggest = {
-      input: [doc.pcds, doc.pcds.replace(/ /g, '')],
-      contexts: {
-        status: doc.doterm ? ['inactive'] : ['active'],
-        location: !doc.doterm && geo ? [geo] : [],
-      },
-      weight: 1
     }
     return [
       ...agg,
@@ -40,7 +49,7 @@ function bulkIndexOps ({ indexName, docs }) {
   }, [])
 }
 
-async function indexDocuments({ filePath, batchSize, indexName }) {
+async function indexDocuments({ filePath, batchSize, indexName, docParser }) {
   try {
     const progressBar = getProgressBar('Indexing Documents')
     progressBar.start(NUM_DOCS_ESTIMATE, 0)
@@ -54,7 +63,7 @@ async function indexDocuments({ filePath, batchSize, indexName }) {
       batchSize,
       (docs, counter) => {
         progressBar.update(counter)
-        const ops = bulkIndexOps({ indexName, docs })
+        const ops = bulkIndexOps({ indexName, docs, docParser })
         return bulkPromise(ops)
       }
     )
@@ -74,9 +83,10 @@ async function esIndex() {
       indexName: process.env.ELASTIC_POSTCODES_INDEX,
     })
     await indexDocuments({
-      indexName: process.env.ELASTIC_POSTCODES_INDEX,
       filePath: process.env.NSPL_CSV,
+      indexName: process.env.ELASTIC_POSTCODES_INDEX,
       batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
+      docParser: postcodeDocParser,
     })
   } catch(e) {
     log.error(e)
