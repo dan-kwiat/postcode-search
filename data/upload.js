@@ -8,11 +8,10 @@ const { validateLatLon } = require('./lib/geo')
 const NUM_DOCS_ESTIMATE = 2636605
 const INDEX = process.env.ELASTIC_INDEX
 
-const bulkOps = docs => {
+function bulkOps (docs) {
   return docs.reduce((agg, doc) => {
     const _id = doc.pcd
     if (!_id) {
-      // throw new Error('Bulk op is missing _id property')
       log.error('Bulk op is missing _id property')
       log.error(doc)
       return agg
@@ -42,14 +41,7 @@ const bulkOps = docs => {
   }, [])
 }
 
-async function esIndex() {
-  try {
-    await createIndex()
-  } catch(e) {
-    log.error(e)
-    process.exit(1)
-  }
-
+async function indexDocuments() {
   try {
     const progressBar = getProgressBar('Indexing Documents')
     progressBar.start(NUM_DOCS_ESTIMATE, 0)
@@ -75,11 +67,19 @@ async function esIndex() {
     progressBar.stop()
     log.info(`Successfully indexed ${totalCount} documents`)
   } catch(e) {
-    log.error('Failed to index documents')
+    log.error(`Failed to index documents`)
+    throw e
+  }
+}
+
+async function esIndex() {
+  try {
+    await createIndex()
+    await indexDocuments()
+  } catch(e) {
     log.error(e)
     process.exit(1)
   }
-
 }
 
 esIndex()
