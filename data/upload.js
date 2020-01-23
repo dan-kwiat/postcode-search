@@ -6,9 +6,8 @@ const { bulkPromise, createIndex } = require('./lib/elastic')
 const { validateLatLon } = require('./lib/geo')
 
 const NUM_DOCS_ESTIMATE = 2636605
-const INDEX = process.env.ELASTIC_INDEX
 
-function bulkOps (docs) {
+function bulkIndexOps ({ indexName, docs }) {
   return docs.reduce((agg, doc) => {
     const _id = doc.pcd
     if (!_id) {
@@ -31,7 +30,7 @@ function bulkOps (docs) {
       {
         index: {
           _id,
-          _index: INDEX,
+          _index: indexName,
           _type: '_doc',
           retry_on_conflict: 2,
         }
@@ -41,13 +40,10 @@ function bulkOps (docs) {
   }, [])
 }
 
-async function indexDocuments() {
+async function indexDocuments({ filePath, batchSize, indexName }) {
   try {
     const progressBar = getProgressBar('Indexing Documents')
     progressBar.start(NUM_DOCS_ESTIMATE, 0)
-
-    const filePath = process.env.NSPL_CSV
-    const batchSize = process.env.ELASTIC_BULK_BATCH_SIZE
 
     if (!filePath || !batchSize) {
       throw new Error('Missing environment variable')
@@ -58,7 +54,7 @@ async function indexDocuments() {
       batchSize,
       (docs, counter) => {
         progressBar.update(counter)
-        const ops = bulkOps(docs)
+        const ops = bulkIndexOps({ indexName, docs })
         return bulkPromise(ops)
       }
     )
@@ -74,8 +70,14 @@ async function indexDocuments() {
 
 async function esIndex() {
   try {
-    await createIndex()
-    await indexDocuments()
+    await createIndex({
+      indexName: process.env.ELASTIC_POSTCODES_INDEX,
+    })
+    await indexDocuments({
+      indexName: process.env.ELASTIC_POSTCODES_INDEX,
+      filePath: process.env.NSPL_CSV,
+      batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
+    })
   } catch(e) {
     log.error(e)
     process.exit(1)

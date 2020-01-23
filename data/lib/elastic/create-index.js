@@ -2,20 +2,18 @@ const log = require('../logger')
 const client = require('./client')
 const mappings = require('./mappings')
 
-const INDEX_NAME = process.env.ELASTIC_INDEX
-
-async function createIndex() {
+async function createIndex({ indexName }) {
   try {
     await client.indices.create({
-      index: INDEX_NAME,
+      index: indexName,
       body: {
         settings: {},
         mappings,
       }
     })
-    log.info(`Successfully created index '${INDEX_NAME}'`)
+    log.info(`Successfully created index '${indexName}'`)
   } catch(e) {
-    log.error(`Failed to create index '${INDEX_NAME}'`)
+    log.error(`Failed to create index '${indexName}'`)
     throw e
   }
 }
