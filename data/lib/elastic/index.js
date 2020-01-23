@@ -1,5 +1,4 @@
 module.exports = {
-  client: require('./client'),
-  mappings: require('./mappings'),
+  createIndex: require('./create-index'),
   bulkPromise: require('./bulk-promise'),
 }

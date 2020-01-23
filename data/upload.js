@@ -2,7 +2,7 @@ require('dotenv').config()
 const streamCsv = require('./lib/csv-stream')
 const log = require('./lib/logger')
 const getProgressBar = require('./lib/progress')
-const { client, mappings, bulkPromise } = require('./lib/elastic')
+const { bulkPromise, createIndex } = require('./lib/elastic')
 const { validateLatLon } = require('./lib/geo')
 
 const NUM_DOCS_ESTIMATE = 2636605
@@ -44,22 +44,14 @@ const bulkOps = docs => {
 
 async function esIndex() {
   try {
-    await client.indices.create({
-      index: INDEX,
-      body: {
-        settings: {},
-        mappings,
-      }
-    })
-    log.info(`Successfully created index '${INDEX}'`)
+    await createIndex()
   } catch(e) {
-    log.error(`Failed to create index '${INDEX}'`)
     log.error(e)
     process.exit(1)
   }
 
   try {
-    const progressBar = getProgressBar('Starting stream')
+    const progressBar = getProgressBar('Indexing Documents')
     progressBar.start(NUM_DOCS_ESTIMATE, 0)
 
     const filePath = process.env.NSPL_CSV
