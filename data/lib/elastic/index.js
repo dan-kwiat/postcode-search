@@ -1,4 +1,4 @@
 module.exports = {
   createIndex: require('./create-index'),
-  bulkPromise: require('./bulk-promise'),
+  bulkIndex: require('./bulk-index'),
 }

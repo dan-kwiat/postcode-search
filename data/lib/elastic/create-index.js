@@ -1,15 +1,11 @@
 const log = require('../logger')
 const client = require('./client')
-const mappings = require('./mappings')
 
-async function createIndex({ indexName }) {
+async function createIndex({ indexName, settings, mappings }) {
   try {
     await client.indices.create({
       index: indexName,
-      body: {
-        settings: {},
-        mappings,
-      }
+      body: { settings, mappings },
     })
     log.info(`Successfully created index '${indexName}'`)
   } catch(e) {

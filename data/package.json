@@ -5,7 +5,7 @@
   "main": "download.js",
   "scripts": {
     "download": "node download.js | bunyan",
-    "upload": "node upload.js | bunyan"
+    "upload": "node upload/index.js | bunyan"
   },
   "author": "",
   "license": "ISC",

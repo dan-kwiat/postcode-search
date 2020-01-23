@@ -21,4 +21,27 @@ const bulkPromise = ops => {
   })
 }
 
-module.exports = bulkPromise
+const bulkIndexOps = ({ indexName, docs, docParser }) => {
+  return docs.reduce((agg, rawDoc) => {
+    const { _id, doc } = docParser(rawDoc)
+    return _id ? [
+      ...agg,
+      {
+        index: {
+          _id,
+          _index: indexName,
+          _type: '_doc',
+          retry_on_conflict: 2,
+        }
+      },
+      doc,
+    ] : agg
+  }, [])
+}
+
+const bulkIndex = ({ indexName, docs, docParser }) => {
+  const ops = bulkIndexOps({ indexName, docs, docParser })
+  return bulkPromise(ops)
+}
+
+module.exports = bulkIndex
