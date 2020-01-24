@@ -4,7 +4,7 @@ const unzipper = require('unzipper')
 const getProgressBar = require('../lib/progress')
 const log = require('../lib/logger')
 
-const MB_TOTAL_ESTIMATE = 200
+const MB_TOTAL_ESTIMATE = 199
 const MB_PROGRESS_STEP = 1
 
 const downloadUnzip = async (url, path) => {
@@ -30,10 +30,10 @@ const downloadUnzip = async (url, path) => {
         i = step
       }
     })
-    
+
     const unzipStream = res.body.pipe(unzipper.Extract({ path }))
     unzipStream.on("finish", () => {
-      progressBar.update(MB_TOTAL_ESTIMATE)
+      progressBar.update(Math.round(bytes/1000000))
       progressBar.stop()
       resolve()
     })
