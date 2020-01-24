@@ -21,14 +21,12 @@ async function csvToElastic({ filePath, batchSize, indexName, docParser }) {
       throw new Error('Missing bulk index batch size')
     }
 
-    const totalCount = await streamCsv(
-      filePath,
-      batchSize,
-      (docs, counter) => {
-        progressBar.update(counter)
-        return bulkIndex({ indexName, docs, docParser })
-      }
-    )
+    const batchHandler = (docs, counter) => {
+      progressBar.update(counter)
+      return bulkIndex({ indexName, docs, docParser })
+    }
+
+    const totalCount = await streamCsv({ filePath, batchSize, batchHandler })
 
     progressBar.update(totalCount)
     progressBar.stop()

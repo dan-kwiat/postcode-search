@@ -1,15 +1,19 @@
 const fs = require('fs')
 const csv = require('csv-parser')
 
-const streamCsv = (file, batchSize, batchHandler) => {
+const streamCsv = ({
+  filePath,
+  batchSize,
+  batchHandler
+}) => (
+  new Promise((resolve, reject) => {
+    let counter = 0
+    let items = []
 
-  const readStream = fs.createReadStream(file)
-  const csvStream = readStream.pipe(csv())
+    const readStream = fs.createReadStream(filePath)
+    readStream.on('error', reject)
 
-  let counter = 0
-  let items = []
-
-  return new Promise((resolve, reject) => {
+    const csvStream = readStream.pipe(csv())
     csvStream.on('data', jsonObj => {
       counter++
       items.push(jsonObj)
@@ -37,6 +41,6 @@ const streamCsv = (file, batchSize, batchHandler) => {
     })
     csvStream.on('error', reject)
   })
-}
+)
 
 module.exports = streamCsv
