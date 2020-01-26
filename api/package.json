@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.12",
-    "elasticsearch": "^16.6.0"
+    "elasticsearch": "^16.6.0",
+    "graphql": "^14.5.8"
   }
 }

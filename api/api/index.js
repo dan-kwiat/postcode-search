@@ -1,5 +1,6 @@
-const esClient = require('../lib/elastic-client')
+const { graphql, buildSchema } = require('graphql')
 const log = require('../lib/logger')
+const esClient = require('../lib/elastic-client')
 
 const MAX_QUERY_LENGTH = 10
 
@@ -7,28 +8,22 @@ const parseQuery = x => {
   return x.replace(/  +/g, ' ').toUpperCase().substring(0,MAX_QUERY_LENGTH)
 }
 
-// Autocomplete Postcode:
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-
-  let variables
-  try {
-    variables = JSON.parse(req.query.variables)
-  } catch(e) {
-    log.error(e)
-    return res.send({ errors: [
-      `Failed to find valid JSON 'variables' in the query string`
-    ]})
+const schema = buildSchema(`
+  input GeoInput {
+    lat: Float
+    lon: Float
   }
-
-  const { q, boostGeo } = variables
-  if (!q || typeof q !== 'string') {
-    return res.send({ errors: [
-      `Failed to find valid query 'q' in the variables object`
-    ]})
+  type AutocompleteSuggestion {
+    id: String
+    lsoa11: String
   }
+  type Query {
+    autocomplete(q: String!, boostGeo: GeoInput): [AutocompleteSuggestion]
+  }
+`)
 
-  try {
+const root = {
+  autocomplete: async ({ q, boostGeo }) => {
     const contexts = {
       status: ['active'],
     }
@@ -65,7 +60,16 @@ module.exports = async (req, res) => {
       id: x._source.pcds,
       lsoa11: x._source.lsoa11,
     }))
-    res.send({ data })
+
+    return data
+  },
+}
+
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  try {
+    const response = await graphql(schema, req.query.query, root)
+    res.send(response)
   } catch(e) {
     log.error(e)
     res.send({ errors: [e.message || 'Failed to search postcodes'] })
