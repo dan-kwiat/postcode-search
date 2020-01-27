@@ -13,7 +13,9 @@ const streamCsv = ({
     const readStream = fs.createReadStream(filePath)
     readStream.on('error', reject)
 
-    const csvStream = readStream.pipe(csv())
+    const csvStream = readStream.pipe(csv({
+      mapHeaders: ({ header }) => header.trim() // deals with zero-width char bug in object keys
+    }))
     csvStream.on('data', jsonObj => {
       counter++
       items.push(jsonObj)
