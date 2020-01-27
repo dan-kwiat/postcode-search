@@ -16,6 +16,7 @@ const schema = buildSchema(`
   type AutocompleteSuggestion {
     id: String
     lsoa11: String
+    lsoa11Name: String
   }
   type Query {
     autocomplete(q: String!, boostGeo: GeoInput): [AutocompleteSuggestion]
@@ -59,6 +60,7 @@ const root = {
     const data = result.suggest[suggestionName][0].options.map(x => ({
       id: x._source.pcds,
       lsoa11: x._source.lsoa11,
+      lsoa11Name: x._source.lsoa11Name,
     }))
 
     return data
