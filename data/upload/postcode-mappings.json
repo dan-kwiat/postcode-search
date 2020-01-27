@@ -58,6 +58,9 @@
       "ward": {
         "type": "keyword"
       },
+      "wardName": {
+        "type": "keyword"
+      },
       "hlthau": {
         "type": "keyword"
       },
@@ -100,10 +103,16 @@
       "msoa11": {
         "type": "keyword"
       },
+      "msoa11Name": {
+        "type": "keyword"
+      },
       "wz11": {
         "type": "keyword"
       },
       "ccg": {
+        "type": "keyword"
+      },
+      "ccgName": {
         "type": "keyword"
       },
       "bua11": {
