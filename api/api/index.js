@@ -68,7 +68,13 @@ const root = {
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   try {
-    const response = await graphql(schema, req.query.query, root)
+    const response = await graphql(
+      schema,
+      req.query.query,
+      root,
+      null,
+      JSON.parse(req.query.variables || "{}")
+    )
     res.send(response)
   } catch(e) {
     log.error(e)
