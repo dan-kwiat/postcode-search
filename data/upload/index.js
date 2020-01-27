@@ -1,5 +1,5 @@
 require('dotenv').config()
-const streamCsv = require('../lib/csv-stream')
+const processCsv = require('../lib/csv-batch-stream')
 const log = require('../lib/logger')
 const getProgressBar = require('../lib/progress')
 const { bulkIndex, createIndex } = require('../lib/elastic')
@@ -27,7 +27,7 @@ async function csvToElastic({ filePath, batchSize, indexName, docParser }) {
       return bulkIndex({ indexName, docs, docParser })
     }
 
-    const totalCount = await streamCsv({ filePath, batchSize, batchHandler })
+    const totalCount = await processCsv({ filePath, batchSize, batchHandler })
 
     progressBar.update(totalCount)
     progressBar.stop()

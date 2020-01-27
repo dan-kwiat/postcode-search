@@ -1,7 +1,7 @@
 const fs = require('fs')
 const csv = require('csv-parser')
 
-const streamCsv = ({
+const processCsv = ({
   filePath,
   batchSize,
   batchHandler
@@ -47,4 +47,4 @@ const streamCsv = ({
   })
 )
 
-module.exports = streamCsv
+module.exports = processCsv
