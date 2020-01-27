@@ -20,6 +20,7 @@ const QUERY = `
     ) {
       id
       lsoa11
+      lsoa11Name
     }
   }
 `
@@ -145,11 +146,11 @@ PostcodeSearch.propTypes = {
 PostcodeSearch.defaultProps = {
   apiUrl: 'https://postcode-search.now.sh/api',
   label: 'Postcode',
-  mapItem: ({ id, lsoa11 }) => ({
+  mapItem: ({ id, lsoa11, lsoa11Name }) => ({
     id,
     icon: null,
     primary: id,
-    secondary: lsoa11,
+    secondary: lsoa11Name || lsoa11,
   }),
 }
 
