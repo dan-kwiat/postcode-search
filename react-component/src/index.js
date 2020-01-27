@@ -9,8 +9,23 @@ const MAX_QUERY_LENGTH = 10
 
 const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
 
+const QUERY = `
+  query REACT_POSTCODE(
+    $q: String!
+    $boostGeo: GeoInput
+  ) {
+    autocomplete(
+      q: $q
+      boostGeo: $boostGeo
+    ) {
+      id
+      lsoa11
+    }
+  }
+`
+
 const getData = (apiUrl, apiKey, variables) => {
-  return fetch(`${apiUrl}?variables=${JSON.stringify(variables)}`).then(x => x.json())
+  return fetch(`${apiUrl}?query=${QUERY}&variables=${JSON.stringify(variables)}`).then(x => x.json())
 }
 
 const errorMessage = ({ error, empty, loading, searchTerm }) => {
@@ -39,7 +54,7 @@ const PostcodeSearch = ({
 }) => {
   const [inputValue, setInputValue] = useState('')
   const [debouncedInputValue, setDebouncedInputValue] = useState('')
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -55,10 +70,9 @@ const PostcodeSearch = ({
       const variables = {
         q: debouncedInputValue,
         // boostGeo: {
-        //   lat: 51.567361,
-        //   lon: -0.070315,
+        //   lat: 52,
+        //   lon: 0,
         // },
-        active: true
       }
       setLoading(true)
       getData(apiUrl, apiKey, variables)
@@ -82,7 +96,7 @@ const PostcodeSearch = ({
         })
     } else {
       setError(null)
-      setData([])
+      setData(null)
     }
     return () => { stale = true }
   }, [apiUrl, apiKey, debouncedInputValue])
@@ -94,12 +108,12 @@ const PostcodeSearch = ({
           errorMessage({
             error,
             loading,
-            empty: data.length === 0,
+            empty: data ? (data.autocomplete.length === 0) : true,
             searchTerm: debouncedInputValue,
           })
         }
         inputValue={inputValue}
-        items={data.map(mapItem)}
+        items={data ? data.autocomplete.map(mapItem) : []}
         label={label}
         leadingIcon={<SearchSVG />}
         loading={loading}
