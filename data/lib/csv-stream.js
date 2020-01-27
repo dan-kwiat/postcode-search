@@ -19,21 +19,23 @@ const streamCsv = ({
     csvStream.on('data', jsonObj => {
       counter++
       items.push(jsonObj)
+
       if (counter % batchSize === 0) {
         readStream.pause()
-        batchHandler(items, counter)
+        batchHandler(
+          items.splice(0, batchSize),
+          counter
+        )
         .then(() => {
-          items = []
           readStream.resume()
         })
         .catch(reject)
       }
     })
     csvStream.on('end', () => {
-      if (counter % batchSize !== 0) {
+      if (items.length > 0) {
         batchHandler(items, counter)
         .then(() => {
-          items = []
           resolve(counter)
         })
         .catch(reject)
