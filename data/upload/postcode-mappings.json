@@ -94,6 +94,9 @@
       "lsoa11": {
         "type": "keyword"
       },
+      "lsoa11Name": {
+        "type": "keyword"
+      },
       "msoa11": {
         "type": "keyword"
       },

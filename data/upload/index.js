@@ -15,16 +15,16 @@ async function esIndex() {
       settings: {},
       mappings: postcodeMappings,
     })
-    // const lsoas = await csvToDict({
-    //   filePath: process.env.NSPL_LSOAS_CSV,
-    //   keyColumn: 'LSOA11CD',
-    //   valueColumn: 'LSOA11NM',
-    // })
+    const lsoas = await csvToDict({
+      filePath: process.env.NSPL_LSOAS_CSV,
+      keyColumn: 'LSOA11CD',
+      valueColumn: 'LSOA11NM',
+    })
     await csvToElastic({
       filePath: process.env.NSPL_POSTCODES_CSV,
       indexName: process.env.ELASTIC_POSTCODES_INDEX,
       batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
-      docParser: postcodeDocParser,
+      docParser: postcodeDocParser(lsoas),
       numRowsEstimate: NUM_POSTCODES_ESTIMATE,
     })
   } catch(e) {

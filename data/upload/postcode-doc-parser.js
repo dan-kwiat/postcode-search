@@ -1,7 +1,7 @@
 const { validateLatLon } = require('../lib/geo')
 const log = require('../lib/logger')
 
-function postcodeDocParser (jsonObj) {
+const postcodeDocParser = lsoas => jsonObj => {
   try {
     const geo = validateLatLon(jsonObj.lat, jsonObj.long)
     return {
@@ -16,7 +16,8 @@ function postcodeDocParser (jsonObj) {
             location: !jsonObj.doterm && geo ? [geo] : [],
           },
           weight: 1
-        }
+        },
+        lsoa11Name: lsoas[jsonObj.lsoa11],
       }
     }
   } catch(e) {
