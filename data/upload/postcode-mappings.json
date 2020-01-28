@@ -49,10 +49,16 @@
       "cty": {
         "type": "keyword"
       },
+      "ctyName": {
+        "type": "keyword"
+      },
       "ced": {
         "type": "keyword"
       },
       "laua": {
+        "type": "keyword"
+      },
+      "lauaName": {
         "type": "keyword"
       },
       "ward": {
@@ -76,13 +82,22 @@
       "pcon": {
         "type": "keyword"
       },
+      "pconName": {
+        "type": "keyword"
+      },
       "eer": {
+        "type": "keyword"
+      },
+      "eerName": {
         "type": "keyword"
       },
       "teclec": {
         "type": "keyword"
       },
       "ttwa": {
+        "type": "keyword"
+      },
+      "ttwaName": {
         "type": "keyword"
       },
       "pct": {
@@ -122,6 +137,9 @@
         "type": "keyword"
       },
       "ru11ind": {
+        "type": "keyword"
+      },
+      "ru11indName": {
         "type": "keyword"
       },
       "oac11": {

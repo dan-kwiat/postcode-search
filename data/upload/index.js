@@ -20,6 +20,11 @@ async function esIndex() {
       keyColumn: 'CCG19CD',
       valueColumn: 'CCG19NM',
     })
+    const lauas = await csvToDict({
+      filePath: process.env.NSPL_LAUAS_CSV,
+      keyColumn: 'LAD19CD',
+      valueColumn: 'LAD19NM',
+    })
     const lsoas = await csvToDict({
       filePath: process.env.NSPL_LSOAS_CSV,
       keyColumn: 'LSOA11CD',
@@ -35,11 +40,48 @@ async function esIndex() {
       keyColumn: 'WD19CD',
       valueColumn: 'WD19NM',
     })
+    const ttwas = await csvToDict({
+      filePath: process.env.NSPL_TTWAS_CSV,
+      keyColumn: 'TTWA11CD',
+      valueColumn: 'TTWA11NM',
+    })
+    const pcons = await csvToDict({
+      filePath: process.env.NSPL_PCONS_CSV,
+      keyColumn: 'PCON14CD',
+      valueColumn: 'PCON14NM',
+    })
+    const rus = await csvToDict({
+      filePath: process.env.NSPL_RUS_CSV,
+      keyColumn: 'RU11IND',
+      valueColumn: 'RU11NM',
+    })
+    const ctys = await csvToDict({
+      filePath: process.env.NSPL_CTYS_CSV,
+      keyColumn: 'CTY10CD',
+      valueColumn: 'CTY10NM',
+    })
+    const eers = await csvToDict({
+      filePath: process.env.NSPL_EERS_CSV,
+      keyColumn: 'EER10CD',
+      valueColumn: 'EER10NM',
+    })
+    const docParser = postcodeDocParser({
+      ccgs,
+      ctys,
+      eers,
+      lauas,
+      lsoas,
+      msoas,
+      pcons,
+      rus,
+      ttwas,
+      wards,
+    })
     await csvToElastic({
+      docParser,
+      batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
       filePath: process.env.NSPL_POSTCODES_CSV,
       indexName: process.env.ELASTIC_POSTCODES_INDEX,
-      batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
-      docParser: postcodeDocParser({ ccgs, lsoas, msoas, wards }),
       numRowsEstimate: NUM_POSTCODES_ESTIMATE,
     })
   } catch(e) {
