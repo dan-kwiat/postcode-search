@@ -1,27 +1,22 @@
-import Head from 'next/head'
-import GraphiQL from 'graphiql'
-import fetch from 'isomorphic-fetch'
-
-function graphQLFetcher(params) {
-  const query = encodeURIComponent(params.query)
-  const variables = JSON.stringify(params.variables || {})
-  const operationName = params.operationName || ''
-
-  return fetch(`http://localhost:3000/api?query=${query}&variables=${variables}&operationName=${operationName}`)
-    .then(response => response.json())
-}
+import PostcodeSearch from 'react-postcode'
+import Link from 'next/link'
 
 function HomePage() {
   return (
-    <div id="graphiql" style={{ height: '100vh' }}>
-      <Head>
-        <link
-          key="graphiql-css"
-          href="https://unpkg.com/graphiql/graphiql.min.css"
-          rel="stylesheet"
-        />
-      </Head>
-      <GraphiQL fetcher={graphQLFetcher} />
+    <div style={{ height: '100vh' }}>
+      <div style={{ maxWidth: '800px', margin: '100px auto', background: '#ddd', padding: '2rem', borderRadius: '1rem' }}>
+        <div style={{ maxWidth: 200, margin: '100 auto', }}>
+          <PostcodeSearch
+            onSelect={item => {
+              console.log(item)
+            }}
+            outlined={false}
+          />
+        </div>
+        <Link href="/graphiql-playground">
+          <a>GraphiQL Playground</a>
+        </Link>
+      </div>
     </div>
   )
 }
