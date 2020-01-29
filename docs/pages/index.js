@@ -5,7 +5,8 @@ function HomePage() {
   return (
     <div style={{ height: '100vh' }}>
       <div style={{ maxWidth: '800px', margin: '100px auto', background: '#ddd', padding: '2rem', borderRadius: '1rem' }}>
-        <div style={{ maxWidth: 200, margin: '100 auto', }}>
+        <h1>Postcode Search</h1>
+        <div style={{ maxWidth: '250px', margin: '20px 0', }}>
           <PostcodeSearch
             onSelect={item => {
               console.log(item)

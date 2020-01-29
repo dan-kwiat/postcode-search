@@ -1,4 +1,4 @@
-# Postcode Search: GraphiQL
+# Postcode Search: Docs
 
 ## Installing
 
