@@ -16,158 +16,178 @@
           }
         ]
       },
-      "pcd": {
-        "type": "keyword"
+      "dates": {
+        "properties": {
+          "dointr": {
+            "type": "keyword"
+          },
+          "doterm": {
+            "type": "keyword"
+          }
+        }
       },
-      "pcd2": {
-        "type": "keyword"
+      "stats": {
+        "properties": {
+          "imd": {
+            "type": "integer"
+          }
+        }
       },
-      "pcds": {
-        "type": "keyword"
+      "coordinates": {
+        "properties": {
+          "lat": {
+            "type": "keyword"
+          },
+          "lon": {
+            "type": "keyword"
+          },
+          "easting": {
+            "type": "keyword"
+          },
+          "northing": {
+            "type": "keyword"
+          }
+        }
       },
-      "dointr": {
-        "type": "keyword"
+      "codes": {
+        "properties": {
+          "pcd": {
+            "type": "keyword"
+          },
+          "pcd2": {
+            "type": "keyword"
+          },
+          "pcds": {
+            "type": "keyword"
+          },
+          "usertype": {
+            "type": "keyword"
+          },
+          "osgrdind": {
+            "type": "keyword"
+          },
+          "oa11": {
+            "type": "keyword"
+          },
+          "cty": {
+            "type": "keyword"
+          },
+          "ced": {
+            "type": "keyword"
+          },
+          "laua": {
+            "type": "keyword"
+          },
+          "ward": {
+            "type": "keyword"
+          },
+          "hlthau": {
+            "type": "keyword"
+          },
+          "nhser": {
+            "type": "keyword"
+          },
+          "ctry": {
+            "type": "keyword"
+          },
+          "rgn": {
+            "type": "keyword"
+          },
+          "pcon": {
+            "type": "keyword"
+          },
+          "eer": {
+            "type": "keyword"
+          },
+          "teclec": {
+            "type": "keyword"
+          },
+          "ttwa": {
+            "type": "keyword"
+          },
+          "pct": {
+            "type": "keyword"
+          },
+          "nuts": {
+            "type": "keyword"
+          },
+          "park": {
+            "type": "keyword"
+          },
+          "lsoa11": {
+            "type": "keyword"
+          },
+          "msoa11": {
+            "type": "keyword"
+          },
+          "wz11": {
+            "type": "keyword"
+          },
+          "ccg": {
+            "type": "keyword"
+          },
+          "bua11": {
+            "type": "keyword"
+          },
+          "buasd11": {
+            "type": "keyword"
+          },
+          "ru11ind": {
+            "type": "keyword"
+          },
+          "oac11": {
+            "type": "keyword"
+          },
+          "lep1": {
+            "type": "keyword"
+          },
+          "lep2": {
+            "type": "keyword"
+          },
+          "pfa": {
+            "type": "keyword"
+          },
+          "calncv": {
+            "type": "keyword"
+          },
+          "stp": {
+            "type": "keyword"
+          }
+        }
       },
-      "doterm": {
-        "type": "keyword"
-      },
-      "usertype": {
-        "type": "keyword"
-      },
-      "oseast1m": {
-        "type": "keyword"
-      },
-      "osnrth1m": {
-        "type": "keyword"
-      },
-      "osgrdind": {
-        "type": "keyword"
-      },
-      "oa11": {
-        "type": "keyword"
-      },
-      "cty": {
-        "type": "keyword"
-      },
-      "ctyName": {
-        "type": "keyword"
-      },
-      "ced": {
-        "type": "keyword"
-      },
-      "laua": {
-        "type": "keyword"
-      },
-      "lauaName": {
-        "type": "keyword"
-      },
-      "ward": {
-        "type": "keyword"
-      },
-      "wardName": {
-        "type": "keyword"
-      },
-      "hlthau": {
-        "type": "keyword"
-      },
-      "nhser": {
-        "type": "keyword"
-      },
-      "ctry": {
-        "type": "keyword"
-      },
-      "rgn": {
-        "type": "keyword"
-      },
-      "pcon": {
-        "type": "keyword"
-      },
-      "pconName": {
-        "type": "keyword"
-      },
-      "eer": {
-        "type": "keyword"
-      },
-      "eerName": {
-        "type": "keyword"
-      },
-      "teclec": {
-        "type": "keyword"
-      },
-      "ttwa": {
-        "type": "keyword"
-      },
-      "ttwaName": {
-        "type": "keyword"
-      },
-      "pct": {
-        "type": "keyword"
-      },
-      "nuts": {
-        "type": "keyword"
-      },
-      "park": {
-        "type": "keyword"
-      },
-      "lsoa11": {
-        "type": "keyword"
-      },
-      "lsoa11Name": {
-        "type": "keyword"
-      },
-      "msoa11": {
-        "type": "keyword"
-      },
-      "msoa11Name": {
-        "type": "keyword"
-      },
-      "wz11": {
-        "type": "keyword"
-      },
-      "ccg": {
-        "type": "keyword"
-      },
-      "ccgName": {
-        "type": "keyword"
-      },
-      "bua11": {
-        "type": "keyword"
-      },
-      "buasd11": {
-        "type": "keyword"
-      },
-      "ru11ind": {
-        "type": "keyword"
-      },
-      "ru11indName": {
-        "type": "keyword"
-      },
-      "oac11": {
-        "type": "keyword"
-      },
-      "lat": {
-        "type": "keyword"
-      },
-      "long": {
-        "type": "keyword"
-      },
-      "lep1": {
-        "type": "keyword"
-      },
-      "lep2": {
-        "type": "keyword"
-      },
-      "pfa": {
-        "type": "keyword"
-      },
-      "imd": {
-        "type": "keyword"
-      },
-      "calncv": {
-        "type": "keyword"
-      },
-      "stp": {
-        "type": "keyword"
+      "names": {
+        "properties": {
+          "ccg": {
+            "type": "keyword"
+          },
+          "cty": {
+            "type": "keyword"
+          },
+          "eer": {
+            "type": "keyword"
+          },
+          "laua": {
+            "type": "keyword"
+          },
+          "lsoa11": {
+            "type": "keyword"
+          },
+          "msoa11": {
+            "type": "keyword"
+          },
+          "ward": {
+            "type": "keyword"
+          },
+          "ttwa": {
+            "type": "keyword"
+          },
+          "pcon": {
+            "type": "keyword"
+          },
+          "ru11ind": {
+            "type": "keyword"
+          }
+        }
       }
     }
   }

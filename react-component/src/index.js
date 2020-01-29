@@ -11,16 +11,19 @@ const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
 
 const QUERY = `
   query REACT_POSTCODE(
-    $q: String!
+    $prefix: String!
     $boostGeo: GeoInput
   ) {
-    autocomplete(
-      q: $q
-      boostGeo: $boostGeo
-    ) {
-      id
-      lsoa11
-      lsoa11Name
+    postcodes {
+      suggest(
+        prefix: $prefix
+        boostGeo: $boostGeo
+      ) {
+        id
+        names {
+          ward
+        }
+      }
     }
   }
 `
@@ -69,7 +72,7 @@ const PostcodeSearch = ({
     let stale = false
     if (debouncedInputValue) {
       const variables = {
-        q: debouncedInputValue,
+        prefix: debouncedInputValue,
         // boostGeo: {
         //   lat: 52,
         //   lon: 0,
@@ -109,12 +112,12 @@ const PostcodeSearch = ({
           errorMessage({
             error,
             loading,
-            empty: data ? (data.autocomplete.length === 0) : true,
+            empty: data ? (data.postcodes.suggest.length === 0) : true,
             searchTerm: debouncedInputValue,
           })
         }
         inputValue={inputValue}
-        items={data ? data.autocomplete.map(mapItem) : []}
+        items={data ? data.postcodes.suggest.map(mapItem) : []}
         label={label}
         leadingIcon={<SearchSVG />}
         loading={loading}
@@ -146,11 +149,14 @@ PostcodeSearch.propTypes = {
 PostcodeSearch.defaultProps = {
   apiUrl: 'https://postcode-search.now.sh/api',
   label: 'Postcode',
-  mapItem: ({ id, lsoa11, lsoa11Name }) => ({
+  mapItem: ({
+    id,
+    names,
+  }) => ({
     id,
     icon: null,
     primary: id,
-    secondary: lsoa11Name || lsoa11,
+    secondary: names.ward,
   }),
 }
 
