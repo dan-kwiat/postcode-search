@@ -6,5 +6,6 @@
     "ELASTIC_USERNAME": "@t2s-postcodes-elastic-username",
     "ELASTIC_PASSWORD": "@t2s-postcodes-elastic-password",
     "ELASTIC_INDEX": "@t2s-postcodes-elastic-index"
-  }
+  },
+  "regions": ["lhr1"]
 }
