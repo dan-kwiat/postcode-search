@@ -80,7 +80,11 @@ const schema = buildSchema(`
   }
   type PostcodesQuery {
     get(value: String!): Postcode
-    suggest(prefix: String!, boostGeo: GeoInput): [Postcode]
+    suggest(
+      active: Boolean = true
+      boostGeo: GeoInput
+      prefix: String!
+    ): [Postcode]
   }
   type Query {
     postcodes: PostcodesQuery
@@ -113,9 +117,9 @@ const root = {
         return null // should we return null or throw error?
       }
     },
-    suggest: async ({ prefix, boostGeo }) => {
+    suggest: async ({ active, boostGeo, prefix }) => {
       const contexts = {
-        status: ['active'],
+        status: [active ? 'active' : 'inactive']
       }
       if (boostGeo) {
         contexts.location = {
