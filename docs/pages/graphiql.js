@@ -1,7 +1,9 @@
 import GraphiQL from 'graphiql'
 import fetch from 'isomorphic-fetch'
+import defaultQuery from '../graphql/default-graphiql'
 
-const API_URL = 'https://postcode-search.now.sh/api'
+const API_URL = 'http://localhost:3000/api'
+// const API_URL = 'https://postcode-search.now.sh/api'
 
 function graphQLFetcher(params) {
   const query = encodeURIComponent(params.query)
@@ -15,7 +17,10 @@ function graphQLFetcher(params) {
 function Playground() {
   return (
     <div id="graphiql" style={{ height: '100vh' }}>
-      <GraphiQL fetcher={graphQLFetcher} />
+      <GraphiQL
+        defaultQuery={defaultQuery}
+        fetcher={graphQLFetcher}
+      />
     </div>
   )
 }

@@ -14,7 +14,7 @@ function HomePage() {
             outlined={false}
           />
         </div>
-        <Link href="/graphiql-playground">
+        <Link href="/graphiql">
           <a>GraphiQL Playground</a>
         </Link>
       </div>
