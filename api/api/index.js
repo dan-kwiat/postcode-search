@@ -70,15 +70,17 @@ const schema = buildSchema(`
     pcon: String
     ru11ind: String
   }
-  type AutocompleteSuggestion {
+  type Postcode {
     id: String
+    active: Boolean
     stats: Stats,
     coordinates: GeoCoordinates,
     codes: GeoCodes,
     names: GeoNames,
   }
   type PostcodesQuery {
-    suggest(prefix: String!, boostGeo: GeoInput): [AutocompleteSuggestion]
+    get(value: String!): Postcode
+    suggest(prefix: String!, boostGeo: GeoInput): [Postcode]
   }
   type Query {
     postcodes: PostcodesQuery
@@ -87,6 +89,30 @@ const schema = buildSchema(`
 
 const root = {
   postcodes: {
+    get: async ({ value }) => {
+      const result = await esClient.search({
+        index: process.env.ELASTIC_INDEX,
+        from: 0,
+        size: 1,
+        body: {
+          query: {
+            term: {
+              match_terms: {
+                value: value.trim().substring(0, MAX_QUERY_LENGTH).replace(/  +/g, ' ').toUpperCase(),
+              }
+            }
+          }
+        },
+      }, {
+        ignore: [404],
+        maxRetries: 3
+      })
+      try {
+        return result.hits.hits[0]._source
+      } catch(e) {
+        return null // should we return null or throw error?
+      }
+    },
     suggest: async ({ prefix, boostGeo }) => {
       const contexts = {
         status: ['active'],
@@ -98,7 +124,6 @@ const root = {
           precision: 6,
         }
       }
-
       const suggestionName = 'postcode_suggestion'
       const result = await esClient.search({
         index: process.env.ELASTIC_INDEX,
@@ -120,10 +145,7 @@ const root = {
         ignore: [404],
         maxRetries: 3
       })
-      const data = result.suggest[suggestionName][0].options.map(x => ({
-        ...x._source,
-        id: x._source.codes.pcds,
-      }))
+      const data = result.suggest[suggestionName][0].options.map(x => x._source)
       return data
     },
   }
@@ -132,6 +154,7 @@ const root = {
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   // res.setHeader('Access-Control-Allow-Headers', '*')
+  // set Cache-Control header?
   try {
     const response = await graphql(
       schema,
