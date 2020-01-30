@@ -12,10 +12,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@rmwc/drawer": "^5.7.2",
+    "@rmwc/list": "^5.7.2",
+    "@rmwc/top-app-bar": "^5.7.2",
     "graphiql": "^0.17.5",
     "graphql": "^14.6.0",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.2.1",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-postcode": "^1.1.0"

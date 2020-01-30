@@ -1,7 +1,83 @@
 import 'graphiql/graphiql.min.css'
 import 'react-postcode/dist/index.css'
+import '@material/drawer/dist/mdc.drawer.css'
+import '@material/icon-button/dist/mdc.icon-button.css'
+import '@material/list/dist/mdc.list.css'
+import '@material/top-app-bar/dist/mdc.top-app-bar.css'
 import '../styles.css'
 
+import Link from 'next/link'
+import Head from 'next/head'
+import {
+  Drawer,
+  DrawerContent
+} from '@rmwc/drawer'
+
+import {
+  List,
+  ListItem
+} from '@rmwc/list'
+
+import {
+  TopAppBar,
+  TopAppBarRow,
+  TopAppBarSection,
+  TopAppBarTitle,
+  TopAppBarNavigationIcon,
+  TopAppBarActionItem,
+  TopAppBarFixedAdjust,
+} from '@rmwc/top-app-bar'
+
 export default function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <div style={{ height: '100vh' }}>
+      <Head>
+        <link
+          key='material-icons-font'
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
+      </Head>
+      <TopAppBar>
+        <TopAppBarRow>
+          <TopAppBarSection alignStart>
+            <TopAppBarNavigationIcon icon="menu" />
+            <TopAppBarTitle>Postcode Search</TopAppBarTitle>
+          </TopAppBarSection>
+          <TopAppBarSection alignEnd>
+            <TopAppBarActionItem icon="favorite" />
+            <TopAppBarActionItem icon="star" />
+            <TopAppBarActionItem icon="mood" />
+          </TopAppBarSection>
+        </TopAppBarRow>
+      </TopAppBar>
+      <TopAppBarFixedAdjust />
+      <div style={{ position: 'absolute', top: 64, left: 0, bottom: 0 }}>
+        <Drawer>
+          <DrawerContent>
+            <List>
+              <Link href="/">
+                <ListItem>
+                  <a>Home</a>
+                </ListItem>
+              </Link>
+              <Link href="/react-postcode">
+                <ListItem>
+                  <a>React Component</a>
+                </ListItem>
+              </Link>
+              <Link href="/graphiql">
+                <ListItem>
+                  <a>GraphiQL Playground</a>
+                </ListItem>
+              </Link>
+            </List>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      <div style={{ position: 'absolute', left: 255, right: 0, top: 64, bottom: 0 }}>
+        <Component {...pageProps} />
+      </div>
+    </div>
+  )
 }
