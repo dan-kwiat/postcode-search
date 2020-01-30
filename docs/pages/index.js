@@ -12,6 +12,7 @@ function HomePage() {
               console.log(item)
             }}
             outlined={false}
+            apiUrl={process.env.API_URL}
           />
         </div>
         <Link href="/graphiql">

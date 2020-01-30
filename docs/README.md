@@ -12,6 +12,8 @@ Now visit `http://localhost:3000`
 
 ## Deploying
 
+First ensure that the environment variables in `next.config.js` are set correctly.
+
 Deploy to personal staging domain `https://postcode-search-docs.your-name.now.sh`:
 
 - `yarn deploy`
