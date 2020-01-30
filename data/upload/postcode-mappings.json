@@ -1,6 +1,15 @@
 {
   "_doc": {
     "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "match_terms": {
+        "type": "keyword"
+      },
+      "active": {
+        "type": "boolean"
+      },
       "suggest": {
         "type": "completion",
         "analyzer": "keyword",

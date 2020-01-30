@@ -15,7 +15,20 @@ const postcodeDocParser = ({
 }) => jsonObj => {
   try {
     const geo = validateLatLon(jsonObj.lat, jsonObj.long)
+    const matchTerms = [jsonObj.pcds, jsonObj.pcds.replace(/ /g, '')]
     const doc = {
+      id: jsonObj.pcds,
+      match_terms: matchTerms,
+      active: jsonObj.doterm ? false : true,
+      // todo: make suggest an array to give the stripped postcode a lower weight?
+      suggest: {
+        input: matchTerms,
+        contexts: {
+          status: jsonObj.doterm ? ['inactive'] : ['active'],
+          location: !jsonObj.doterm && geo ? [geo] : [],
+        },
+        weight: 1
+      },
       // todo: make dates actual dates
       dates: {
         "dointr": jsonObj.dointr,
@@ -77,15 +90,6 @@ const postcodeDocParser = ({
         "ttwa": ttwas[jsonObj.ttwa],
         "pcon": pcons[jsonObj.pcon],
         "ru11ind": rus[jsonObj.ru11ind],
-      },
-      // todo: make suggest an array to give the stripped postcode a lower weight?
-      suggest: {
-        input: [jsonObj.pcds, jsonObj.pcds.replace(/ /g, '')],
-        contexts: {
-          status: jsonObj.doterm ? ['inactive'] : ['active'],
-          location: !jsonObj.doterm && geo ? [geo] : [],
-        },
-        weight: 1
       },
     }
     return {
