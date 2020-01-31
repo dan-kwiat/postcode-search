@@ -11,7 +11,7 @@ import {
 
 function HomePage() {
   return (
-    <div style={{ maxWidth: '800px', margin: '100px auto', background: '#ddd', padding: '2rem', borderRadius: '1rem' }}>
+    <div className='centered-content'>
       <h1>Postcode Search</h1>
     </div>
   )

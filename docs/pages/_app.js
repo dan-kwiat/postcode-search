@@ -1,26 +1,17 @@
-import 'graphiql/graphiql.min.css'
-import 'react-postcode/dist/index.css'
-import '@material/drawer/dist/mdc.drawer.css'
-import '@material/icon-button/dist/mdc.icon-button.css'
-import '@material/list/dist/mdc.list.css'
-import '@material/top-app-bar/dist/mdc.top-app-bar.css'
-import '../styles.css'
-import GithubIcon from '../components/GithubIcon'
-
+import { useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
+import GithubIcon from '../components/GithubIcon'
 import {
   Drawer,
-  DrawerContent
+  DrawerContent,
+  DrawerAppContent,
 } from '@rmwc/drawer'
-
 import {
   List,
   ListItem
 } from '@rmwc/list'
-
 import {
   TopAppBar,
   TopAppBarRow,
@@ -30,6 +21,14 @@ import {
   TopAppBarActionItem,
   TopAppBarFixedAdjust,
 } from '@rmwc/top-app-bar'
+
+import 'graphiql/graphiql.min.css'
+import 'react-postcode/dist/index.css'
+import '@material/drawer/dist/mdc.drawer.css'
+import '@material/icon-button/dist/mdc.icon-button.css'
+import '@material/list/dist/mdc.list.css'
+import '@material/top-app-bar/dist/mdc.top-app-bar.css'
+import '../styles.css'
 
 const NAV_LINKS = [
   {
@@ -48,6 +47,7 @@ const NAV_LINKS = [
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const [open, setOpen] = useState(true)
   return (
     <div style={{ height: '100vh' }}>
       <Head>
@@ -60,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
       <TopAppBar>
         <TopAppBarRow>
           <TopAppBarSection alignStart>
-            <TopAppBarNavigationIcon icon="menu" />
+            <TopAppBarNavigationIcon icon="menu" onClick={() => setOpen(!open)} />
             <TopAppBarTitle>Postcode Search</TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
@@ -75,8 +75,8 @@ export default function MyApp({ Component, pageProps }) {
         </TopAppBarRow>
       </TopAppBar>
       <TopAppBarFixedAdjust />
-      <div style={{ position: 'absolute', top: 64, left: 0, bottom: 0 }}>
-        <Drawer>
+      <div style={{ overflow: 'hidden', position: 'relative' }}>
+        <Drawer dismissible open={open}>
           <DrawerContent>
             <List>
               {NAV_LINKS.map(({ path, label }) => (
@@ -89,9 +89,9 @@ export default function MyApp({ Component, pageProps }) {
             </List>
           </DrawerContent>
         </Drawer>
-      </div>
-      <div style={{ position: 'absolute', left: 255, right: 0, top: 64, bottom: 0 }}>
-        <Component {...pageProps} />
+        <DrawerAppContent>
+          <Component {...pageProps} />
+        </DrawerAppContent>
       </div>
     </div>
   )
