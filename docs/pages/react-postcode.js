@@ -1,4 +1,21 @@
 import PostcodeSearch from 'react-postcode'
+import CodeBlock from '../components/CodeBlock'
+
+const demoCode = `
+import PostcodeSearch from 'react-postcode'
+import 'react-postcode/dist/index.css'
+
+function ReactPostcodeDemo() {
+  return (
+    <PostcodeSearch
+      onSelect={item => {
+        console.log(item)
+      }}
+      outlined={false}
+    />
+  )
+}
+`
 
 function ReactPostcodeDemo() {
   return (
@@ -13,6 +30,10 @@ function ReactPostcodeDemo() {
           apiUrl={process.env.API_URL}
         />
       </div>
+      <CodeBlock
+        language='jsx'
+        codeString={demoCode}
+      />
     </div>
   )
 }
