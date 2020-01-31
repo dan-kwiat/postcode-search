@@ -5,6 +5,7 @@ import '@material/icon-button/dist/mdc.icon-button.css'
 import '@material/list/dist/mdc.list.css'
 import '@material/top-app-bar/dist/mdc.top-app-bar.css'
 import '../styles.css'
+import GithubIcon from '../components/GithubIcon'
 
 import Link from 'next/link'
 import Head from 'next/head'
@@ -63,9 +64,13 @@ export default function MyApp({ Component, pageProps }) {
             <TopAppBarTitle>Postcode Search</TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
-            <TopAppBarActionItem icon="favorite" />
-            <TopAppBarActionItem icon="star" />
-            <TopAppBarActionItem icon="mood" />
+            <TopAppBarActionItem
+              aria-label="GitHub"
+              tag="a"
+              href="https://github.com/dan-kwiat/postcode-search"
+              icon={<GithubIcon />}
+              target="_blank"
+            />
           </TopAppBarSection>
         </TopAppBarRow>
       </TopAppBar>
