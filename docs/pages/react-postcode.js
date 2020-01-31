@@ -1,13 +1,4 @@
 import PostcodeSearch from 'react-postcode'
-import Link from 'next/link'
-import {
-  Drawer,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerSubtitle,
-  DrawerContent
-} from '@rmwc/drawer'
-
 
 function ReactPostcodeDemo() {
   return (
@@ -22,9 +13,6 @@ function ReactPostcodeDemo() {
           apiUrl={process.env.API_URL}
         />
       </div>
-      <Link href="/graphiql">
-        <a>GraphiQL Playground</a>
-      </Link>
     </div>
   )
 }
