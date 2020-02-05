@@ -925,6 +925,19 @@
   dependencies:
     tslib "^1.9.3"
 
+"@material/button@^3.1.0", "@material/button@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/button/-/button-3.2.0.tgz#859d9ce164d6ee5925ac0fb04af57ea7d9295c6e"
+  integrity sha512-VEASy3Dtc7BCo8/cuUIp6w0+/l4U1myGZffK5GeFVInP/erStSQOmYXT7jGXkZpUglRzWOpVvEpc6nsvhMqGbw==
+  dependencies:
+    "@material/elevation" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/ripple" "^3.2.0"
+    "@material/rtl" "^3.2.0"
+    "@material/shape" "^3.1.0"
+    "@material/theme" "^3.1.0"
+    "@material/typography" "^3.1.0"
+
 "@material/checkbox@^2.1.1":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@material/checkbox/-/checkbox-2.3.0.tgz#3fd2d8ad4d602b8486f841fc561e01107f06b4a3"
@@ -1282,6 +1295,24 @@
   dependencies:
     "@material/feature-targeting" "^3.1.0"
 
+"@material/snackbar@^3.1.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/snackbar/-/snackbar-3.2.0.tgz#ca59459d18db2e5f79078554c09a813bca55bd16"
+  integrity sha512-WVA+dJYbzDMlPpXCdkGEQqi1+tHqV8a9tKBYlr4Vy+3UUaEl6gIomRiWNnagoodhOwGQhyugCeLKHtmVn72IZA==
+  dependencies:
+    "@material/animation" "^3.1.0"
+    "@material/base" "^3.1.0"
+    "@material/button" "^3.2.0"
+    "@material/dom" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/icon-button" "^3.2.0"
+    "@material/ripple" "^3.2.0"
+    "@material/rtl" "^3.2.0"
+    "@material/shape" "^3.1.0"
+    "@material/theme" "^3.1.0"
+    "@material/typography" "^3.1.0"
+    tslib "^1.9.3"
+
 "@material/textfield@^2.3.1":
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-2.3.1.tgz#893183f86b3c6f5913247f56f8516dcbf83a1cd8"
@@ -1372,6 +1403,18 @@
     hyperform "^0.9.9"
     mutation-observer "^1.0.3"
 
+"@rmwc/button@^5.7.2":
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/button/-/button-5.7.2.tgz#1c1ef2669f6ab48f9cd1111c986dd37227fe98f5"
+  integrity sha512-Kerzok5q4wxB8Kj4BgckG54r0/nruq+eUK4+rujMiBRIUPi1nw47OZCab8/c+T+bsyVTnBOcXW+xwcmPG6dCXQ==
+  dependencies:
+    "@material/button" "^3.1.0"
+    "@rmwc/base" "^5.7.2"
+    "@rmwc/icon" "^5.7.2"
+    "@rmwc/provider" "^5.7.2"
+    "@rmwc/ripple" "^5.7.2"
+    "@rmwc/types" "^5.6.0"
+
 "@rmwc/circular-progress@^5.7.0":
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/@rmwc/circular-progress/-/circular-progress-5.7.2.tgz#e4aa2b4650fca03c0b3916799964019362388850"
@@ -1437,6 +1480,18 @@
     "@material/ripple" "^3.1.0"
     "@rmwc/base" "^5.7.2"
     "@rmwc/provider" "^5.7.2"
+    "@rmwc/types" "^5.6.0"
+
+"@rmwc/snackbar@^5.7.2":
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/snackbar/-/snackbar-5.7.2.tgz#05e42d079c2305ebb43d8af80df3dd5da53e7e1f"
+  integrity sha512-v11eVPNt9Rsy5T9kXHHWd/mmcq4r48FPTpHmuPJ3FW+TVZd8RkIuR6aseOaMRCcHkq+mqViZ2Cb+BvypCZFCTw==
+  dependencies:
+    "@material/snackbar" "^3.1.0"
+    "@rmwc/base" "^5.7.2"
+    "@rmwc/button" "^5.7.2"
+    "@rmwc/icon" "^5.7.2"
+    "@rmwc/icon-button" "^5.7.2"
     "@rmwc/types" "^5.6.0"
 
 "@rmwc/top-app-bar@^5.7.2":

@@ -24,9 +24,10 @@ import {
 
 import 'graphiql/graphiql.min.css'
 import 'react-postcode/dist/index.css'
-import '@material/drawer/dist/mdc.drawer.css'
 import '@material/icon-button/dist/mdc.icon-button.css'
+import '@material/drawer/dist/mdc.drawer.css'
 import '@material/list/dist/mdc.list.css'
+import '@material/snackbar/dist/mdc.snackbar.css';
 import '@material/top-app-bar/dist/mdc.top-app-bar.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import '../styles.css'

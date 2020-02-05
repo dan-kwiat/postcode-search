@@ -13,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@rmwc/drawer": "^5.7.2",
+    "@rmwc/icon-button": "^5.7.2",
     "@rmwc/list": "^5.7.2",
+    "@rmwc/snackbar": "^5.7.2",
     "@rmwc/top-app-bar": "^5.7.2",
     "copy-to-clipboard": "^3.2.0",
     "graphiql": "^0.17.5",
