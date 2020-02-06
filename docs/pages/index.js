@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import PostcodeSearch from 'react-postcode'
-import Link from 'next/link'
 import {
   Drawer,
   DrawerHeader,
@@ -10,6 +9,7 @@ import {
 } from '@rmwc/drawer'
 import CodeBlock from '../components/CodeBlock'
 import { Chip, ChipSet } from '@rmwc/chip'
+import { Typography } from '@rmwc/typography'
 
 const requestCode = {
   js: `
@@ -61,7 +61,24 @@ function HomePage() {
   const [language, setLanguage] = useState('js')
   return (
     <div className='centered-content'>
-      <h1>Postcode Search API</h1>
+      <Typography use='headline1' tag='h1'>
+        Getting Started
+      </Typography>
+      <Typography use='body1'>
+        Postcode GQL is a GraphQL API for searching UK postcodes.
+        If you'd prefer a RESTful service we recommend using <a target='_blank' href='https://postcodes.io'>Postcodes.io</a>.
+      </Typography>
+      <Typography use='headline3' tag='h3'>
+        Features:
+      </Typography>
+      <ul>
+        <li><Typography use='headline6'>GraphQL specification</Typography></li>
+        <li><Typography use='headline6'>Detailed geographical data</Typography></li>
+        <li><Typography use='headline6'>National statistics data</Typography></li>
+        <li><Typography use='headline6'>Fast autocomplete search with optional geo boosting</Typography></li>
+        <li><Typography use='headline6'>Pre-built UI components</Typography></li>
+      </ul>
+
       <ChipSet choice>
         <Chip
           selected={language === 'js'}

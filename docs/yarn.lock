@@ -1551,6 +1551,16 @@
   resolved "https://registry.yarnpkg.com/@rmwc/types/-/types-5.6.0.tgz#926f36b2341aa27ba0b5121cbb07dcbb29f4e95e"
   integrity sha512-fTH6ZSGxIs5DYj05925y4EPDRdcu4lBtBGJ3iRjP0+lXB6qYyY1Zgp0Fgc/ubgv3fEGsfKcJR9QvaYsW6g18aA==
 
+"@rmwc/typography@^5.7.2":
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/typography/-/typography-5.7.2.tgz#06b413d747a325722a8a32cd4cdb9b55902847de"
+  integrity sha512-OnZ1wtHIQ3EXgmfOoHSNtrc6rd6OV2/i6BhSzRJynZhch+H0/DVFJxkC6bg8cjpbIDjwC+KsRhXzms/b1OBU/g==
+  dependencies:
+    "@material/typography" "^3.1.0"
+    "@rmwc/base" "^5.7.2"
+    "@rmwc/provider" "^5.7.2"
+    "@rmwc/types" "^5.6.0"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
