@@ -952,6 +952,36 @@
     "@material/theme" "^1.1.0"
     tslib "^1.9.3"
 
+"@material/checkbox@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/checkbox/-/checkbox-3.2.0.tgz#168d4e16e160bec17948d06416935250fa10fac5"
+  integrity sha512-4XgQ4sM40j60n4RN43BxXtkFVvyFQgo/vc0W5hf9Qz2uwEah46Shg1nHMYZNvcNW+FXRm96gH8zz3qFgEf1ytA==
+  dependencies:
+    "@material/animation" "^3.1.0"
+    "@material/base" "^3.1.0"
+    "@material/dom" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/ripple" "^3.2.0"
+    "@material/rtl" "^3.2.0"
+    "@material/theme" "^3.1.0"
+    tslib "^1.9.3"
+
+"@material/chips@^3.1.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/chips/-/chips-3.2.0.tgz#29973a0b92b99f6d30fdcc086ec13f1a06d27663"
+  integrity sha512-XPm2RkqPFRog7hCMBTP4lM8AH9fqysXDMqf0ZomeJbFj4mkyalKsp45zrCR384gYjymwu99EHpcIs8L+gjVsrQ==
+  dependencies:
+    "@material/animation" "^3.1.0"
+    "@material/base" "^3.1.0"
+    "@material/checkbox" "^3.2.0"
+    "@material/elevation" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/ripple" "^3.2.0"
+    "@material/shape" "^3.1.0"
+    "@material/theme" "^3.1.0"
+    "@material/typography" "^3.1.0"
+    tslib "^1.9.3"
+
 "@material/dom@^1.0.0", "@material/dom@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@material/dom/-/dom-1.1.0.tgz#3bd3d1a3415b4181118fecb182d93beda56a6f8c"
@@ -1412,6 +1442,17 @@
     "@rmwc/base" "^5.7.2"
     "@rmwc/icon" "^5.7.2"
     "@rmwc/provider" "^5.7.2"
+    "@rmwc/ripple" "^5.7.2"
+    "@rmwc/types" "^5.6.0"
+
+"@rmwc/chip@^5.7.2":
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/chip/-/chip-5.7.2.tgz#39df83dc7559a76e806d941e400a67b86f96203c"
+  integrity sha512-3vEiis6s1oJyio2Xj7Lj8CJ+gaojDT+cJlc/1ooRz5d1yKEJsiBGwCCipyBnfE9qxXflHy/qPj7ie6mZp4XCHQ==
+  dependencies:
+    "@material/chips" "^3.1.0"
+    "@rmwc/base" "^5.7.2"
+    "@rmwc/icon" "^5.7.2"
     "@rmwc/ripple" "^5.7.2"
     "@rmwc/types" "^5.6.0"
 
@@ -1936,6 +1977,11 @@ babel-plugin-dynamic-import-node@^2.3.0:
   integrity sha512-o6qFkpeQEBxcqt0XYlWzAVxNCSCZdUgcR8IRlhD/8DylxjjO4foPcvTW0GGKa/cVt3rvxZ7o5ippJ+/0nvLhlQ==
   dependencies:
     object.assign "^4.1.0"
+
+babel-plugin-prismjs@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-prismjs/-/babel-plugin-prismjs-2.0.1.tgz#b56095f423926662259de8f5ee50a7afbcf0fd92"
+  integrity sha512-GqQGa3xX3Z2ft97oDbGvEFoxD8nKqb3ZVszrOc5H7icnEUA56BIjVYm86hfZZA82uuHLwTIfCXbEKzKG1BzKzg==
 
 babel-plugin-syntax-jsx@6.18.0:
   version "6.18.0"

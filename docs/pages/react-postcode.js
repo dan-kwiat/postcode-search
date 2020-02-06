@@ -2,16 +2,16 @@ import PostcodeSearch from 'react-postcode'
 import CodeBlock from '../components/CodeBlock'
 
 const demoCode = `
+// postcode-demo.jsx
 import PostcodeSearch from 'react-postcode'
 import 'react-postcode/dist/index.css'
 
-function ReactPostcodeDemo() {
+const ReactPostcodeDemo = () => {
   return (
     <PostcodeSearch
-      onSelect={item => {
-        console.log(item)
+      onSelect={(postcode) => {
+        console.log(postcode)
       }}
-      outlined={false}
     />
   )
 }

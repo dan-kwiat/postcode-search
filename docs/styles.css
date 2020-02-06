@@ -1,6 +1,7 @@
 body {
   font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   margin: 0px;
+  --mdc-theme-primary: #f92672;
 }
 
 a {
@@ -11,4 +12,32 @@ a {
   max-width: 800px;
   margin: 30px auto;
   padding: 1rem;
+}
+
+pre code .token.keyword {
+  color: rgb(197, 165, 197);
+}
+
+pre code .token.function {
+  color: rgb(121, 182, 242);
+}
+
+pre code .token.string {
+  color: rgb(141, 200, 145);
+}
+
+pre code .token.string {
+  color: rgb(141, 200, 145);
+}
+
+pre code .token.string {
+  color: rgb(141, 200, 145);
+}
+
+pre code .token.tag {
+  color: rgb(252, 146, 158);
+}
+
+pre code .token.class-name {
+  color: rgb(252, 146, 158);
 }

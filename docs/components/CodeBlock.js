@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import copy from 'copy-to-clipboard'
-import Prism from 'prismjs'
-import 'prismjs/components/prism-jsx'
-// TODO: Use the prism babel plugin:
-// https://github.com/mAAdhaTTah/babel-plugin-prismjs
+import { Prism } from '../pages/_app.js'
 import { IconButton } from '@rmwc/icon-button'
 import { Snackbar } from '@rmwc/snackbar'
 
@@ -15,6 +12,8 @@ const CodeBlock = ({ codeString, language }) => {
     Prism.highlightElement(el.current)
   }, [codeString, language])
 
+  const trimmedCode = codeString.trim()
+
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}>
@@ -22,7 +21,7 @@ const CodeBlock = ({ codeString, language }) => {
           icon="file_copy"
           label="Copy code"
           onClick={() => {
-            copy(codeString.trim())
+            copy(trimmedCode)
             setSnackOpen(true)
           }}
           style={{ color: 'rgba(255,255,255,.7)' }}
@@ -31,12 +30,12 @@ const CodeBlock = ({ codeString, language }) => {
       <Snackbar
         open={snackOpen}
         onClose={e => setSnackOpen(false)}
-        message="Code copied to clipboard"
-        timeout={3000}
+        message={`Code (${language}) copied to clipboard`}
+        timeout={1000}
       />
       <pre>
         <code ref={el} className={`language-${language}`}>
-          {codeString.trim()}
+          {trimmedCode}
         </code>
       </pre>
     </div>
