@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -52,6 +52,10 @@ const NAV_LINKS = [
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [open, setOpen] = useState(true)
+  useEffect(() => {
+    // hack to trigger cold start on mounting
+    fetch(process.env.API_URL).catch(e => {})
+  }, [])
   return (
     <div style={{ height: '100vh' }}>
       <Head>
