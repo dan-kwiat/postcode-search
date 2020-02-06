@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import PostcodeSearch from 'react-postcode'
 import CodeBlock from '../components/CodeBlock'
 import { Typography } from '@rmwc/typography'
+import { SimpleDialog } from '@rmwc/dialog'
 
 const demoCode = `
 // postcode-demo.jsx
@@ -12,24 +14,38 @@ const ReactPostcodeDemo = () => {
     <PostcodeSearch
       onSelect={(postcode) => {
         console.log(postcode)
+        // perform action e.g. open dialog, zoom map..
       }}
     />
   )
 }
 `
 
-function ReactPostcodeDemo() {
+const ReactPostcodeDemo = () => {
+  const [open, setOpen] = useState(false)
+  const [postcode, setPostcode] = useState(null)
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>{`<PostcodeSearch />`}</Typography>
       <div style={{ maxWidth: '250px', margin: '20px 0', }}>
         <PostcodeSearch
-          onSelect={item => {
-            console.log(item)
+          onSelect={() => {}}
+          onFetch={(postcode, err) => {
+            setPostcode(postcode)
+            setOpen(true)
           }}
           outlined={false}
           apiUrl={process.env.API_URL}
         />
+        <SimpleDialog
+          title="Selected Postcode"
+          open={open}
+          onClose={() => setOpen(false)}
+          acceptLabel={null}
+          cancelLabel="Close"
+        >
+          <CodeBlock language='json' codeString={JSON.stringify(postcode, null, 2)} />
+        </SimpleDialog>
       </div>
       <CodeBlock
         language='jsx'

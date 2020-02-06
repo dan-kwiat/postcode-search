@@ -26,7 +26,9 @@ export { Prism } // required here because contains css
 
 import 'graphiql/graphiql.min.css'
 import 'react-postcode/dist/index.css'
+import '@material/button/dist/mdc.button.css'
 import '@material/chips/dist/mdc.chips.css'
+import '@material/dialog/dist/mdc.dialog.css'
 import '@material/icon-button/dist/mdc.icon-button.css'
 import '@material/drawer/dist/mdc.drawer.css'
 import '@material/list/dist/mdc.list.css'
@@ -74,7 +76,7 @@ export default function MyApp({ Component, pageProps }) {
         <TopAppBarRow>
           <TopAppBarSection alignStart>
             <TopAppBarNavigationIcon icon="menu" onClick={() => setOpen(!open)} />
-            <TopAppBarTitle><Link href='/'>Postcode GQL</Link></TopAppBarTitle>
+            <TopAppBarTitle><Link href='/'><a>Postcode GQL</a></Link></TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
             <TopAppBarActionItem

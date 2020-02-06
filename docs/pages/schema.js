@@ -92,7 +92,7 @@ function Schema() {
         GraphQL Schema
       </Typography>
       <Typography use='body1'>
-        Here's the full GraphQL schema. Try the <Link href='/graphiql'>GraphiQL Docs</Link> for an interactive view.
+        Here's the full GraphQL schema. Try the <Link href='/graphiql'><a>GraphiQL Docs</a></Link> for an interactive view.
       </Typography>
       <CodeBlock
         language='graphql'
