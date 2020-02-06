@@ -2,7 +2,7 @@
   "presets": ["next/babel"],
   "plugins": [
     ["prismjs", {
-        "languages": ["javascript", "json", "jsx", "shell"],
+        "languages": ["graphql", "javascript", "json", "jsx", "shell"],
         "plugins": ["line-numbers"],
         "theme": "okaidia",
         "css": true

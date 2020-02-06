@@ -10,7 +10,7 @@ a {
 
 .centered-content {
   max-width: 800px;
-  margin: 30px auto;
+  margin: 0 auto;
   padding: 1rem;
 }
 
@@ -38,8 +38,18 @@ pre code .token.tag {
   color: rgb(252, 146, 158);
 }
 
+pre code .token.attr-name {
+  color: rgb(249, 38, 114);
+}
+
 pre code .token.class-name {
   color: rgb(252, 146, 158);
+}
+
+.mdc-top-app-bar__title a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
 }
 
 .drawer-footer {

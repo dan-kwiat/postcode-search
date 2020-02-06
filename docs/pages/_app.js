@@ -30,23 +30,28 @@ import '@material/chips/dist/mdc.chips.css'
 import '@material/icon-button/dist/mdc.icon-button.css'
 import '@material/drawer/dist/mdc.drawer.css'
 import '@material/list/dist/mdc.list.css'
-import '@material/snackbar/dist/mdc.snackbar.css';
+import '@material/snackbar/dist/mdc.snackbar.css'
 import '@material/top-app-bar/dist/mdc.top-app-bar.css'
+import '@material/typography/dist/mdc.typography.css'
 import '../styles.css'
 
 const NAV_LINKS = [
   {
     path: '/',
-    label: 'Overview',
+    label: 'Getting Started',
+  },
+  {
+    path: '/schema',
+    label: 'GraphQL Schema',
+  },
+  {
+    path: '/graphiql',
+    label: 'GraphiQL Docs',
   },
   {
     path: '/react-postcode',
     label: 'React Component',
   },
-  {
-    path: '/graphiql',
-    label: 'GraphiQL Playground',
-  }
 ]
 
 export default function MyApp({ Component, pageProps }) {
@@ -69,7 +74,7 @@ export default function MyApp({ Component, pageProps }) {
         <TopAppBarRow>
           <TopAppBarSection alignStart>
             <TopAppBarNavigationIcon icon="menu" onClick={() => setOpen(!open)} />
-            <TopAppBarTitle>Postcode Search</TopAppBarTitle>
+            <TopAppBarTitle><Link href='/'>Postcode GQL</Link></TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
             <TopAppBarActionItem

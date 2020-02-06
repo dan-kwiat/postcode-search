@@ -13,7 +13,7 @@ function graphQLFetcher(params) {
 
 function Playground() {
   return (
-    <div id="graphiql" style={{ height: '100vh' }}>
+    <div id="graphiql" style={{ height: 'calc(100vh - 4rem)' }}>
       <GraphiQL
         defaultQuery={defaultQuery}
         fetcher={graphQLFetcher}
