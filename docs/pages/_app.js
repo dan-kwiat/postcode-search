@@ -57,7 +57,7 @@ export default function MyApp({ Component, pageProps }) {
     fetch(process.env.API_URL).catch(e => {})
   }, [])
   return (
-    <div style={{ height: '100vh' }}>
+    <div>
       <Head>
         <link
           key='material-icons-font'
@@ -65,7 +65,7 @@ export default function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <TopAppBar>
+      <TopAppBar fixed>
         <TopAppBarRow>
           <TopAppBarSection alignStart>
             <TopAppBarNavigationIcon icon="menu" onClick={() => setOpen(!open)} />
@@ -84,8 +84,8 @@ export default function MyApp({ Component, pageProps }) {
       </TopAppBar>
       <TopAppBarFixedAdjust />
       <div style={{ overflow: 'hidden', position: 'relative' }}>
-        <Drawer dismissible open={open}>
-          <DrawerContent>
+        <Drawer dismissible open={open} style={{ position: 'fixed' }}>
+          <DrawerContent style={{ height: "calc(100vh - 12rem)" }}>
             <List>
               {NAV_LINKS.map(({ path, label }) => (
                 <Link key={path} href={path}>
@@ -96,6 +96,12 @@ export default function MyApp({ Component, pageProps }) {
               ))}
             </List>
           </DrawerContent>
+          <a href="https://www.timetospare.com" target="_blank" className="drawer-footer">
+            <div>
+              <div>Made with <span role="img" aria-label="heart">❤️</span> in London</div>
+              <img src="/tts_logo.png" alt="Time to Spare Logo" style={{ width: '75%' }} />
+            </div>
+          </a>
         </Drawer>
         <DrawerAppContent>
           <Component {...pageProps} />
