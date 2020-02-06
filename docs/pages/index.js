@@ -61,14 +61,14 @@ function HomePage() {
   const [language, setLanguage] = useState('js')
   return (
     <div className='centered-content'>
-      <Typography use='headline1' tag='h1'>
+      <Typography use='headline2' tag='h1'>
         Getting Started
       </Typography>
       <Typography use='body1'>
         Postcode GQL is a GraphQL API for searching UK postcodes.
         If you'd prefer a RESTful service we recommend using <a target='_blank' href='https://postcodes.io'>Postcodes.io</a>.
       </Typography>
-      <Typography use='headline3' tag='h3'>
+      <Typography use='headline4' tag='h3'>
         Features:
       </Typography>
       <ul>

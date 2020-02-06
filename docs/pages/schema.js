@@ -88,7 +88,7 @@ type Query {
 function Schema() {
   return (
     <div className='centered-content'>
-      <Typography use='headline1' tag='h1'>
+      <Typography use='headline2' tag='h1'>
         GraphQL Schema
       </Typography>
       <Typography use='body1'>

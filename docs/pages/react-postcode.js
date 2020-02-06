@@ -1,5 +1,6 @@
 import PostcodeSearch from 'react-postcode'
 import CodeBlock from '../components/CodeBlock'
+import { Typography } from '@rmwc/typography'
 
 const demoCode = `
 // postcode-demo.jsx
@@ -20,7 +21,7 @@ const ReactPostcodeDemo = () => {
 function ReactPostcodeDemo() {
   return (
     <div className='centered-content'>
-      <h1>{`<PostcodeSearch />`}</h1>
+      <Typography use='headline2' tag='h1'>{`<PostcodeSearch />`}</Typography>
       <div style={{ maxWidth: '250px', margin: '20px 0', }}>
         <PostcodeSearch
           onSelect={item => {
