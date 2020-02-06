@@ -9,6 +9,13 @@ const App = () => (
       onSelect={item => {
         console.log(item)
       }}
+      onFetch={(gqlData, error) => {
+        if (error) {
+          console.log('UNEXPECTED ERR: ', error)
+          return
+        }
+        console.log('GQL DATA: ', gqlData)
+      }}
       outlined={true}
     />
   </div>

@@ -9,27 +9,97 @@ const MAX_QUERY_LENGTH = 10
 
 const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
 
-const QUERY = `
-  query REACT_POSTCODE(
-    $prefix: String!
-    $boostGeo: GeoInput
-  ) {
-    postcodes {
-      suggest(
-        prefix: $prefix
-        boostGeo: $boostGeo
-      ) {
-        id
-        names {
-          ward
-        }
+const QUERY_GET = `
+query REACT_POSTCODE_GET(
+  $value: String!
+) {
+  postcodes {
+    get(value: $value) {
+      id
+      active
+      stats {
+        imd
+      }
+      coordinates {
+        lat
+        lon
+        easting
+        northing
+      }
+      codes {
+        osgrdind
+        usertype
+        pcd
+        pcd2
+        pcds
+        oa11
+        cty
+        ced
+        laua
+        ward
+        hlthau
+        nhser
+        ctry
+        rgn
+        pcon
+        eer
+        teclec
+        ttwa
+        pct
+        nuts
+        park
+        lsoa11
+        msoa11
+        wz11
+        ccg
+        bua11
+        buasd11
+        lep1
+        lep2
+        pfa
+        calncv
+        stp
+        ru11ind
+        oac11
+      }
+      names {
+        ccg
+        cty
+        eer
+        laua
+        lsoa11
+        msoa11
+        ward
+        ttwa
+        pcon
+        ru11ind
       }
     }
   }
+}
 `
 
-const getData = (apiUrl, apiKey, variables) => {
-  return fetch(`${apiUrl}?query=${QUERY}&variables=${JSON.stringify(variables)}`).then(x => x.json())
+const QUERY_SUGGEST = `
+query REACT_POSTCODE_SUGGEST(
+  $prefix: String!
+  $boostGeo: GeoInput
+) {
+  postcodes {
+    suggest(
+      prefix: $prefix
+      boostGeo: $boostGeo
+    ) {
+      id
+      names {
+        ward
+      }
+    }
+  }
+}
+`
+
+const getData = ({ apiUrl, query, variables }) => {
+  return fetch(`${apiUrl}?query=${query}&variables=${JSON.stringify(variables)}`).then(x => x.json())
 }
 
 const errorMessage = ({ error, empty, loading, searchTerm }) => {
@@ -50,6 +120,7 @@ const PostcodeSearch = ({
   mapItem,
   menuClassName,
   onBlur,
+  onFetch,
   onFocus,
   onSelect,
   outlined,
@@ -78,8 +149,9 @@ const PostcodeSearch = ({
         //   lon: 0,
         // },
       }
+      const query = QUERY_SUGGEST
       setLoading(true)
-      getData(apiUrl, apiKey, variables)
+      getData({ apiUrl, query, variables })
         .then(({ data, errors }) => {
           if (stale) return
           if (errors) {
@@ -125,7 +197,16 @@ const PostcodeSearch = ({
         onBlur={onBlur}
         onFocus={onFocus}
         onInputValueChange={onInputValueChange}
-        onSelect={onSelect}
+        onSelect={item => {
+          onSelect(item)
+          if (onFetch) {
+            const query = QUERY_GET
+            const variables = { value: item.id }
+            getData({ apiUrl, query, variables })
+              .then(gqlData => onFetch(gqlData))
+              .catch(error => onFetch(null, error))
+          }
+        }}
         outlined={outlined}
         textFieldClassName={textFieldClassName}
       />
@@ -140,6 +221,7 @@ PostcodeSearch.propTypes = {
   mapItem: PropTypes.func,
   menuClassName: PropTypes.string,
   onBlur: PropTypes.func,
+  onFetch: PropTypes.func,
   onFocus: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
   outlined: PropTypes.bool,
