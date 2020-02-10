@@ -12,7 +12,7 @@ import 'react-postcode/dist/index.css'
 const ReactPostcodeDemo = () => {
   return (
     <PostcodeSearch
-      onSelect={(postcode) => {
+      onFetch={(postcode) => {
         console.log(postcode)
         // perform action e.g. open dialog, zoom map..
       }}

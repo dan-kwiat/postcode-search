@@ -33,6 +33,7 @@ import 'react-postcode/dist/index.css'
 - `mapItem: func`
 - `menuClassName: string`
 - `onBlur: func`
+- `onFetch: func`
 - `onFocus: func`
 - `onSelect: func`
 - `outlined: bool`
@@ -47,12 +48,11 @@ import PostcodeSearch from 'react-postcode'
 import 'react-postcode/dist/index.css'
 
 const App = () => (
-  <div style={{ maxWidth: 200, margin: '100 auto', }}>
+  <div style={{ maxWidth: '200px', margin: '100px auto', }}>
     <PostcodeSearch
-      onSelect={item => {
-        console.log(item)
+      onFetch={postcode => {
+        console.log(postcode)
       }}
-      outlined={true}
     />
   </div>
 )
