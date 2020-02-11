@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import PostcodeSearch from 'react-postcode'
 import {
   Drawer,
@@ -8,7 +7,7 @@ import {
   DrawerContent
 } from '@rmwc/drawer'
 import CodeBlock from '../components/CodeBlock'
-import { Chip, ChipSet } from '@rmwc/chip'
+import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
 
 const requestCode = {
@@ -77,7 +76,6 @@ const responseCode = `
 `
 
 function HomePage() {
-  const [language, setLanguage] = useState('js')
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
@@ -97,32 +95,13 @@ function HomePage() {
         <li><Typography use='headline6'>Fast autocomplete search with optional geo boosting</Typography></li>
         <li><Typography use='headline6'>Pre-built UI components</Typography></li>
       </ul>
-
-      <section style={{ margin: '1rem 0' }}>
-        <ChipSet choice style={{ paddingBottom: 0 }}>
-          <Chip
-            selected={language === 'js'}
-            onClick={() => setLanguage('js')}
-            label="JavaScript"
-          />
-          <Chip
-            selected={language === 'python'}
-            onClick={() => setLanguage('python')}
-            label="Python"
-          />
-          <Chip
-            selected={language === 'shell'}
-            onClick={() => setLanguage('shell')}
-            label="Shell"
-          />
-        </ChipSet>
-        <div style={{ height: '450px', maxHeight: 'calc(80vh)' }}>
-          <CodeBlock
-            language={language}
-            codeString={requestCode[language]}
-          />
-        </div>
-      </section>
+      <MultiCodeBlock
+        samples={[
+          { language: 'js', label: 'JavaScript', codeString: requestCode['js'] },
+          { language: 'python', label: 'Python', codeString: requestCode['python'] },
+          { language: 'shell', label: 'Shell', codeString: requestCode['shell'] },
+        ]}
+      />
       <p>
         A successful response has a <code>data</code> property which takes the same shape as the sent query.
       </p>
