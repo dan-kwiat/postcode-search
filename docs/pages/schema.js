@@ -1,91 +1,18 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import CodeBlock from '../components/CodeBlock'
+import { Chip, ChipSet } from '@rmwc/chip'
 import { Typography } from '@rmwc/typography'
+import schema from '../graphql/schema'
+import jsonExample from '../graphql/schema-example.json'
 
-const schema = `
-input GeoInput {
-  lat: Float
-  lon: Float
+const schemaCode = {
+  json: JSON.stringify(jsonExample, null, 2),
+  graphql: schema
 }
-type Stats {
-  imd: Int
-}
-type GeoCoordinates {
-  lat: Float
-  lon: Float
-  easting: Float
-  northing: Float
-}
-type GeoCodes {
-  osgrdind: String
-  usertype: String
-  pcd: String
-  pcd2: String
-  pcds: String
-  oa11: String
-  cty: String
-  ced: String
-  laua: String
-  ward: String
-  hlthau: String
-  nhser: String
-  ctry: String
-  rgn: String
-  pcon: String
-  eer: String
-  teclec: String
-  ttwa: String
-  pct: String
-  nuts: String
-  park: String
-  lsoa11: String
-  msoa11: String
-  wz11: String
-  ccg: String
-  bua11: String
-  buasd11: String
-  lep1: String
-  lep2: String
-  pfa: String
-  calncv: String
-  stp: String
-  ru11ind: String
-  oac11: String
-}
-type GeoNames {
-  ccg: String
-  cty: String
-  eer: String
-  laua: String
-  lsoa11: String
-  msoa11: String
-  ward: String
-  ttwa: String
-  pcon: String
-  ru11ind: String
-}
-type Postcode {
-  id: String
-  active: Boolean
-  stats: Stats,
-  coordinates: GeoCoordinates,
-  codes: GeoCodes,
-  names: GeoNames,
-}
-type PostcodesQuery {
-  get(value: String!): Postcode
-  suggest(
-    active: Boolean = true
-    boostGeo: GeoInput
-    prefix: String!
-  ): [Postcode]
-}
-type Query {
-  postcodes: PostcodesQuery
-}
-`
 
 function Schema() {
+  const [language, setLanguage] = useState('graphql')
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
@@ -94,10 +21,26 @@ function Schema() {
       <Typography use='body1'>
         Here's the full GraphQL schema. Try the <Link href='/graphiql'><a>GraphiQL Docs</a></Link> for an interactive view.
       </Typography>
-      <CodeBlock
-        language='graphql'
-        codeString={schema}
-      />
+      <section style={{ margin: '1rem 0' }}>
+        <ChipSet choice style={{ paddingBottom: 0 }}>
+          <Chip
+            selected={language === 'graphql'}
+            onClick={() => setLanguage('graphql')}
+            label="GraphGL"
+          />
+          <Chip
+            selected={language === 'json'}
+            onClick={() => setLanguage('json')}
+            label="JSON Example"
+          />
+        </ChipSet>
+        <div style={{ height: '600px', maxHeight: 'calc(80vh)' }}>
+          <CodeBlock
+            language={language}
+            codeString={schemaCode[language]}
+          />
+        </div>
+      </section>
     </div>
   )
 }

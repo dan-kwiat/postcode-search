@@ -1,0 +1,130 @@
+{
+  "data": {
+    "postcodes": {
+      "get": {
+        "id": "SW1A 0AA",
+        "active": true,
+        "stats": {
+          "imd": 13801
+        },
+        "coordinates": {
+          "lat": 51.49984,
+          "lon": -0.124663,
+          "easting": 530268,
+          "northing": 179545
+        },
+        "codes": {
+          "osgrdind": "1",
+          "usertype": "1",
+          "pcd": "SW1A0AA",
+          "pcd2": "SW1A 0AA",
+          "pcds": "SW1A 0AA",
+          "oa11": "E00023945",
+          "cty": "E99999999",
+          "ced": "E99999999",
+          "laua": "E09000033",
+          "ward": "E05000644",
+          "hlthau": "E18000007",
+          "nhser": "E40000003",
+          "ctry": "E92000001",
+          "rgn": "E12000007",
+          "pcon": "E14000639",
+          "eer": "E15000007",
+          "teclec": "E24000014",
+          "ttwa": "E30000234",
+          "pct": "E16000057",
+          "nuts": "E05000644",
+          "park": "E99999999",
+          "lsoa11": "E01004733",
+          "msoa11": "E02000979",
+          "wz11": "E33031155",
+          "ccg": "E38000031",
+          "bua11": "E34004707",
+          "buasd11": "E35000546",
+          "lep1": "E37000023",
+          "lep2": "",
+          "pfa": "E23000001",
+          "calncv": "E57000003",
+          "stp": "E54000027",
+          "ru11ind": "A1",
+          "oac11": "2D2"
+        },
+        "names": {
+          "ccg": "NHS Central London (Westminster) CCG",
+          "cty": "(pseudo) England (UA/MD/LB)",
+          "eer": "London",
+          "laua": "Westminster",
+          "lsoa11": "Westminster 020C",
+          "msoa11": "Westminster 020",
+          "ward": "St James's",
+          "ttwa": "London",
+          "pcon": "Cities of London and Westminster",
+          "ru11ind": "(England/Wales) Urban major conurbation"
+        }
+      },
+      "suggest": [
+        {
+          "id": "SW1A 0AA",
+          "active": true,
+          "stats": {
+            "imd": 13801
+          },
+          "coordinates": {
+            "lat": 51.49984,
+            "lon": -0.124663,
+            "easting": 530268,
+            "northing": 179545
+          },
+          "codes": {
+            "osgrdind": "1",
+            "usertype": "1",
+            "pcd": "SW1A0AA",
+            "pcd2": "SW1A 0AA",
+            "pcds": "SW1A 0AA",
+            "oa11": "E00023945",
+            "cty": "E99999999",
+            "ced": "E99999999",
+            "laua": "E09000033",
+            "ward": "E05000644",
+            "hlthau": "E18000007",
+            "nhser": "E40000003",
+            "ctry": "E92000001",
+            "rgn": "E12000007",
+            "pcon": "E14000639",
+            "eer": "E15000007",
+            "teclec": "E24000014",
+            "ttwa": "E30000234",
+            "pct": "E16000057",
+            "nuts": "E05000644",
+            "park": "E99999999",
+            "lsoa11": "E01004733",
+            "msoa11": "E02000979",
+            "wz11": "E33031155",
+            "ccg": "E38000031",
+            "bua11": "E34004707",
+            "buasd11": "E35000546",
+            "lep1": "E37000023",
+            "lep2": "",
+            "pfa": "E23000001",
+            "calncv": "E57000003",
+            "stp": "E54000027",
+            "ru11ind": "A1",
+            "oac11": "2D2"
+          },
+          "names": {
+            "ccg": "NHS Central London (Westminster) CCG",
+            "cty": "(pseudo) England (UA/MD/LB)",
+            "eer": "London",
+            "laua": "Westminster",
+            "lsoa11": "Westminster 020C",
+            "msoa11": "Westminster 020",
+            "ward": "St James's",
+            "ttwa": "London",
+            "pcon": "Cities of London and Westminster",
+            "ru11ind": "(England/Wales) Urban major conurbation"
+          }
+        }
+      ]
+    }
+  }
+}

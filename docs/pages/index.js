@@ -98,27 +98,31 @@ function HomePage() {
         <li><Typography use='headline6'>Pre-built UI components</Typography></li>
       </ul>
 
-      <ChipSet choice>
-        <Chip
-          selected={language === 'js'}
-          onClick={() => setLanguage('js')}
-          label="JavaScript"
-        />
-        <Chip
-          selected={language === 'python'}
-          onClick={() => setLanguage('python')}
-          label="Python"
-        />
-        <Chip
-          selected={language === 'shell'}
-          onClick={() => setLanguage('shell')}
-          label="Shell"
-        />
-      </ChipSet>
-      <CodeBlock
-        language={language}
-        codeString={requestCode[language]}
-      />
+      <section style={{ margin: '1rem 0' }}>
+        <ChipSet choice style={{ paddingBottom: 0 }}>
+          <Chip
+            selected={language === 'js'}
+            onClick={() => setLanguage('js')}
+            label="JavaScript"
+          />
+          <Chip
+            selected={language === 'python'}
+            onClick={() => setLanguage('python')}
+            label="Python"
+          />
+          <Chip
+            selected={language === 'shell'}
+            onClick={() => setLanguage('shell')}
+            label="Shell"
+          />
+        </ChipSet>
+        <div style={{ height: '450px', maxHeight: 'calc(80vh)' }}>
+          <CodeBlock
+            language={language}
+            codeString={requestCode[language]}
+          />
+        </div>
+      </section>
       <p>
         A successful response has a <code>data</code> property which takes the same shape as the sent query.
       </p>
