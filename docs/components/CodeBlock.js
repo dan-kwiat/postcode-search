@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import copy from 'copy-to-clipboard'
-import { Prism } from '../pages/_app.js'
+import { Icon } from '@rmwc/icon'
 import { IconButton } from '@rmwc/icon-button'
-import { Snackbar } from '@rmwc/snackbar'
+import { Tooltip } from '@rmwc/tooltip'
+import { Prism } from '../pages/_app.js'
 
 const CodeBlock = ({ codeString, language }) => {
-  const [snackOpen, setSnackOpen] = useState(false)
   const el = useRef(null)
 
   useEffect(() => {
@@ -17,22 +17,29 @@ const CodeBlock = ({ codeString, language }) => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}>
-        <IconButton
-          icon="file_copy"
-          label="Copy code"
-          onClick={() => {
-            copy(trimmedCode)
-            setSnackOpen(true)
-          }}
-          style={{ color: 'rgba(255,255,255,.7)' }}
-        />
+        <Tooltip
+          content={
+            <div style={{ display: 'flex' }}>
+              <div>Copied</div>
+              <Icon
+                icon={{ icon: 'check', size: 'xsmall' }}
+                style={{ marginLeft: '0.2rem' }}
+              />
+            </div>
+          }
+          activateOn="click"
+          align="left"
+        >
+          <IconButton
+            icon="file_copy"
+            label="Copy code"
+            onClick={() => {
+              copy(trimmedCode)
+            }}
+            style={{ color: 'rgba(255,255,255,.7)' }}
+          />
+        </Tooltip>
       </div>
-      <Snackbar
-        open={snackOpen}
-        onClose={e => setSnackOpen(false)}
-        message={`Code (${language}) copied to clipboard`}
-        timeout={1000}
-      />
       <pre>
         <code ref={el} className={`language-${language}`}>
           {trimmedCode}
