@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 import CodeBlock from './CodeBlock'
 import { Chip, ChipSet } from '@rmwc/chip'
 
@@ -17,11 +18,12 @@ function MultiCodeBlock({ samples }) {
   return (
     <section style={{ margin: '1rem 0' }}>
       <ChipSet choice style={{ paddingBottom: 0 }}>
-        {samples.map((x) => (
+        {samples.map(x => (
           <Chip
+            key={x.language}
             selected={x.language === language}
             onClick={() => setLanguage(x.language)}
-            label={x.label}
+            label={x.label || x.language}
           />
         ))}
       </ChipSet>
@@ -33,6 +35,13 @@ function MultiCodeBlock({ samples }) {
       </div>
     </section>
   )
+}
+MultiCodeBlock.propTypes = {
+  samples: PropTypes.arrayOf(PropTypes.shape({
+    codeString: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    language: PropTypes.string.isRequired,
+  }))
 }
 
 export default MultiCodeBlock
