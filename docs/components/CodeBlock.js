@@ -15,7 +15,7 @@ const CodeBlock = ({ codeString, language }) => {
   const trimmedCode = codeString.trim()
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', height: '100%' }}>
       <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}>
         <Tooltip
           content={
@@ -40,7 +40,7 @@ const CodeBlock = ({ codeString, language }) => {
           />
         </Tooltip>
       </div>
-      <pre>
+      <pre style={{ height: '100%', overflowY: 'scroll', boxSizing: 'border-box' }} >
         <code ref={el} className={`language-${language}`}>
           {trimmedCode}
         </code>
