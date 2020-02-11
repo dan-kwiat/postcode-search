@@ -14,9 +14,11 @@ import { Typography } from '@rmwc/typography'
 const requestCode = {
   js: `
 // api-demo.js
-let QUERY = \`{ postcodes { suggest(prefix: "SE23") { id } } }\`
+const fetch = require('isomorphic-unfetch')
+const API_URL = '${process.env.API_URL}'
+const QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
 
-fetch(\`${process.env.API_URL}?query=$\{QUERY}\`)
+fetch(\`$\{API_URL}?query=$\{QUERY}\`)
   .then(res => res.json())
   .then(({ data, errors }) => {
     if (errors) {
@@ -29,10 +31,27 @@ fetch(\`${process.env.API_URL}?query=$\{QUERY}\`)
     console.log('UNEXPECTED ERROR: ', err)
   })
   `,
+  python: `
+# api-demo.py
+import requests
+API_URL = '${process.env.API_URL}'
+QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
+
+try:
+    res = requests.get(API_URL, params={ 'query': QUERY })
+    payload = res.json()
+    if 'errors' in payload:
+        print('QUERY ERRORS: ', payload['errors'])
+    else:
+        print('DATA: ', payload['data'])
+except Exception as e:
+    print("UNEXPECTED ERROR: ", e)
+  `,
   shell: `
 # api-demo.sh
+API_URL='${process.env.API_URL}'
 QUERY='{ postcodes { suggest(prefix: "SE23") { id } } }'
-curl -g "${process.env.API_URL}?query=$QUERY" | json_pp
+curl -g "$API_URL?query=$QUERY" | json_pp
   `,
 }
 
@@ -84,13 +103,16 @@ function HomePage() {
           selected={language === 'js'}
           onClick={() => setLanguage('js')}
           label="JavaScript"
-          trailingIcon={null}
+        />
+        <Chip
+          selected={language === 'python'}
+          onClick={() => setLanguage('python')}
+          label="Python"
         />
         <Chip
           selected={language === 'shell'}
           onClick={() => setLanguage('shell')}
           label="Shell"
-          trailingIcon={null}
         />
       </ChipSet>
       <CodeBlock
