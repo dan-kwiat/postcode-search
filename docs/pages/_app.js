@@ -45,7 +45,7 @@ const NAV_LINKS = [
   },
   {
     path: '/schema',
-    label: 'GraphQL Schema',
+    label: 'Schema',
   },
   {
     path: '/graphiql',

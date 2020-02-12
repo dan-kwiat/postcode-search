@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import copy from 'copy-to-clipboard'
 import { Icon } from '@rmwc/icon'
 import { IconButton } from '@rmwc/icon-button'
 import { Tooltip } from '@rmwc/tooltip'
 import { Prism } from '../pages/_app.js'
 
-const CodeBlock = ({ codeString, language }) => {
+const CodeBlock = ({ codeString, language, rows }) => {
   const el = useRef(null)
 
   useEffect(() => {
@@ -13,9 +14,10 @@ const CodeBlock = ({ codeString, language }) => {
   }, [codeString, language])
 
   const trimmedCode = codeString.trim()
+  const numLines = rows || trimmedCode.split('\n').length
 
   return (
-    <div style={{ position: 'relative', height: '100%' }}>
+    <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}>
         <Tooltip
           content={
@@ -40,13 +42,18 @@ const CodeBlock = ({ codeString, language }) => {
           />
         </Tooltip>
       </div>
-      <pre style={{ height: '100%', overflowY: 'scroll', boxSizing: 'border-box' }} >
+      <pre style={{ height: `${numLines*1.5}em` }}>
         <code ref={el} className={`language-${language}`}>
           {trimmedCode}
         </code>
       </pre>
     </div>
   )
+}
+CodeBlock.propTypes = {
+  codeString: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
+  rows: PropTypes.number,
 }
 
 export default CodeBlock

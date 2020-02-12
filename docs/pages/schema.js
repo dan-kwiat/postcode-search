@@ -8,15 +8,16 @@ function Schema() {
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
-        GraphQL Schema
+        Schema
       </Typography>
       <Typography use='body1'>
         Here's the full GraphQL schema. Try the <Link href='/graphiql'><a>GraphiQL Docs</a></Link> for an interactive view.
       </Typography>
       <MultiCodeBlock
+        rows={20}
         samples={[
           { language: 'graphql', label: 'GraphQL', codeString: schema },
-          { language: 'json', label: 'JSON Example', codeString: JSON.stringify(jsonExample, null, 2) },
+          { language: 'json', label: 'JSON Response Example', codeString: JSON.stringify(jsonExample, null, 2) },
         ]}
       />
     </div>

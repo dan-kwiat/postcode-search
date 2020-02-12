@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import CodeBlock from './CodeBlock'
 import { Chip, ChipSet } from '@rmwc/chip'
 
-function MultiCodeBlock({ samples }) {
+const maxLines = samples => samples.reduce((agg, x) => Math.max(
+  agg,
+  x.codeString.trim().split('\n').length
+), 0)
+
+function MultiCodeBlock({ samples, rows }) {
   const [language, setLanguage] = useState(samples[0].language)
 
   const codeString = samples.reduce((agg, x) => {
     return x.language === language ? x.codeString : agg
   }, '')
-
-  const maxLines = samples.reduce((agg, x) => Math.max(
-    agg,
-    x.codeString.split('\n').length
-  ), 0)
 
   return (
     <section style={{ margin: '1rem 0' }}>
@@ -27,16 +27,16 @@ function MultiCodeBlock({ samples }) {
           />
         ))}
       </ChipSet>
-      <div style={{ height: `${maxLines*1.5}em`, maxHeight: 'calc(80vh)' }}>
-        <CodeBlock
-          language={language}
-          codeString={codeString}
-        />
-      </div>
+      <CodeBlock
+        language={language}
+        codeString={codeString}
+        rows={rows || maxLines(samples)}
+      />
     </section>
   )
 }
 MultiCodeBlock.propTypes = {
+  rows: PropTypes.number,
   samples: PropTypes.arrayOf(PropTypes.shape({
     codeString: PropTypes.string.isRequired,
     label: PropTypes.string,

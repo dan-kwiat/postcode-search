@@ -27,7 +27,7 @@ const ReactPostcodeDemo = () => {
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>{`<PostcodeSearch />`}</Typography>
-      <div style={{ maxWidth: '250px', margin: '20px 0', }}>
+      <div style={{ maxWidth: '250px', margin: '20px 0' }}>
         <PostcodeSearch
           onSelect={() => {}}
           onFetch={(postcode, err) => {
@@ -44,7 +44,11 @@ const ReactPostcodeDemo = () => {
           acceptLabel={null}
           cancelLabel="Close"
         >
-          <CodeBlock language='json' codeString={JSON.stringify(postcode, null, 2)} />
+          <CodeBlock
+            language='json'
+            codeString={JSON.stringify(postcode, null, 2)}
+            rows={15}
+          />
         </SimpleDialog>
       </div>
       <CodeBlock
