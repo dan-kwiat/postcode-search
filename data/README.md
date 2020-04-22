@@ -3,12 +3,12 @@
 ## Installing
 
 - `yarn`
-- `cp .env-example .env` and set appropriate values in `.env`
+- `cp .env-example .env` and fill in missing values in `.env`
 
 ## Downloading & Unzipping NSPL data
 
-- `yarn download`
+- `yarn download-postcode`
 
 ## Uploading to Elasticsearch Index
 
-- `yarn upload`
+- `yarn upload-postcode`
