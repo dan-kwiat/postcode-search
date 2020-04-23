@@ -1,7 +1,7 @@
 const schema = `
 input GeoInput {
-  lat: Float
-  lon: Float
+  lat: Float!
+  lon: Float!
 }
 type Stats {
   imd: Int
@@ -107,10 +107,11 @@ type LocalAuthority {
   geoJSON: LocalAuthorityGeoJSON
 }
 type LocalAuthorityQuery {
-  get(
+  list(
+    id: [ID]
     point: GeoInput
     precision: BoundaryPrecision = BUC
-  ): LocalAuthority
+  ): [LocalAuthority]
 }
 type Query {
   postcode: PostcodeQuery

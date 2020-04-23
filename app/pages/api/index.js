@@ -96,37 +96,46 @@ const postcode = {
     })
     const data = result.body.suggest.postcode_suggestion[0].options.map(x => x._source)
     return data
-  },
+  }
 }
 
 const localAuthority = {
-  get: async ({ point, precision }) => {
+  list: async ({ id, point, precision }) => {
     if (!ELASTIC_INDEX_POSTCODE) {
       throw 'ELASTIC_INDEX_LOCAL_AUTHORITY is undefined'
     }
-    if (!point) return null
+    if (!point && (!id || id.length === 0)) return null
+
+    const highestPrecision = 'buc' // should update this if we add more precisions to index
+
+    const filter = point ? [{
+      geo_shape: {
+        [`${highestPrecision}.geoshape`]: {
+          relation: 'intersects',
+          shape: {
+            type: 'point',
+            coordinates: [point.lon, point.lat]
+          }
+        }
+      }
+    }] : []
+
+    const should = id && id.length > 0 ? (
+      id.map(x => ({ term: { id: x } }))
+    ) : []
+
     let result
-    const precisionLower = precision.toLowerCase()
     try {
       result = await client.search({
         index: ELASTIC_INDEX_LOCAL_AUTHORITY,
         from: 0,
-        size: 1,
+        size: 10,
         body: {
           query: {
             bool: {
-              must: { match_all: {} },
-              filter: {
-                geo_shape: {
-                  [`${precisionLower}.geoshape`]: {
-                    relation: 'intersects',
-                    shape: {
-                      type: 'point',
-                      coordinates: [point.lon, point.lat]
-                    }
-                  }
-                }
-              }
+              should,
+              filter,
+              minimum_should_match: should.length > 0 ? 1 : 0,
             }
           }
         },
@@ -138,11 +147,10 @@ const localAuthority = {
       throw `Error querying Elasticsearch: ${e.message}`
     }
     try {
-      const doc = result.body.hits.hits[0]._source
-      return {
-        id: doc.id,
-        geoJSON: doc[precisionLower].geojson,
-      }
+      return result.body.hits.hits.map(({ _source }) => ({
+        id: _source.id,
+        geoJSON: _source[precision.toLowerCase()].geojson,
+      }))
     } catch(e) {
       console.log(e)
       return null // should we return null or throw error?

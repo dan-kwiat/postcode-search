@@ -67,7 +67,7 @@ const fullQuery = `{
     suggest(prefix: "SW1A 0AA") ${postcodeFields}
   }
   localAuthority {
-    get(
+    list(
       point: {
         lat: 51.5085336,
         lon: -0.1254484
