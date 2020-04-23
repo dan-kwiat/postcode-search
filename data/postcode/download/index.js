@@ -2,8 +2,8 @@ require('dotenv').config()
 const { pipeline } = require('stream')
 const fetch = require('node-fetch')
 const unzipper = require('unzipper')
-const getProgressBar = require('../lib/progress')
-const log = require('../lib/logger')
+const getProgressBar = require('../../lib/progress')
+const log = require('../../lib/logger')
 
 const MB_TOTAL_ESTIMATE = 199
 const MB_PROGRESS_STEP = 1
