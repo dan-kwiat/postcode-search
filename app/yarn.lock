@@ -5527,10 +5527,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-postcode@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-postcode/-/react-postcode-1.2.0.tgz#c85a22a1148711dc728657a57623e2a0760dac59"
-  integrity sha512-LzEs0Lzs//TPNzyKN8tTSP8HEwP0JnaNSc6R/KRefS5A+j0Ql9QXacV3cxc7SwBc/Wg1WobNfuhzEG1P/mGQ+Q==
+react-postcode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-postcode/-/react-postcode-2.0.0.tgz#20d70563b4762f02841c1ff19ab032815d8741a6"
+  integrity sha512-H26m4zJzF2vrrvKglLgaATTVXca9LTqH+Ik7R1A0HRywZSAjjpV5hxe8/R0gKJT0s+dvbdg2CfHnudQA6hZj6Q==
   dependencies:
     filter-suggest "3.5.5"
     lodash.debounce "^4.0.8"
