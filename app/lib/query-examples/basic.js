@@ -1,1 +1,1 @@
-export default `{ postcodes { suggest(prefix: "SE23") { id } } }`
+export default `{ postcode { suggest(prefix: "SE23") { id } } }`

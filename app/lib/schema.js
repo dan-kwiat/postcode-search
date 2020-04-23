@@ -68,7 +68,7 @@ type Postcode {
   codes: GeoCodes,
   names: GeoNames,
 }
-type PostcodesQuery {
+type PostcodeQuery {
   get(value: String!): Postcode
   suggest(
     active: Boolean = true
@@ -77,7 +77,7 @@ type PostcodesQuery {
   ): [Postcode]
 }
 type Query {
-  postcodes: PostcodesQuery
+  postcode: PostcodeQuery
 }
 `
 

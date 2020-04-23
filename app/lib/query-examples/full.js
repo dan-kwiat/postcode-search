@@ -62,7 +62,7 @@ const postcodeFields = `
 }`
 
 const fullQuery = `{
-  postcodes {
+  postcode {
     get(value: "SW1A 0AA") ${postcodeFields}
     suggest(prefix: "SW1A 0AA") ${postcodeFields}
   }

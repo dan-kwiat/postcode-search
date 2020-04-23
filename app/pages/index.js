@@ -3,6 +3,7 @@ import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
 import graphQLFetcher from '../lib/graphql-fetcher'
 import QUERY from '../lib/query-examples/basic'
+import QUERY_MALFORMED from '../lib/query-examples/malformed'
 
 const PUBLIC_URL = 'https://geo-gql.now.sh'
 
@@ -51,9 +52,7 @@ curl -g "$API_URL?query=$QUERY" | json_pp
 }
 
 
-function HomePage({ response }) {
-  console.log('HomePage')
-  console.log('process.env.ELASTIC_INDEX', process.env.ELASTIC_INDEX)
+function HomePage({ goodResponse, badResponse }) {
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
@@ -85,21 +84,33 @@ function HomePage({ response }) {
       </p>
       <CodeBlock
         language='json'
-        codeString={JSON.stringify(response, null, 2)}
+        codeString={JSON.stringify(goodResponse, null, 2)}
+      />
+      <p>
+        If the query was malformed, the response has an <code>errors</code> property (but still has status code <code>200</code>).
+      </p>
+      <CodeBlock
+        language='json'
+        codeString={JSON.stringify(badResponse, null, 2)}
       />
     </div>
   )
 }
 
 export async function getStaticProps() {
-  const response = await graphQLFetcher({
+  const goodResponse = await graphQLFetcher({
     query: QUERY,
+    baseUrl: PUBLIC_URL,
+  })
+  const badResponse = await graphQLFetcher({
+    query: QUERY_MALFORMED,
     baseUrl: PUBLIC_URL,
   })
 
   return {
     props: {
-      response,
+      goodResponse,
+      badResponse,
     }
   }
 }

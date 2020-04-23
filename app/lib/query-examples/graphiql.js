@@ -13,7 +13,7 @@ const defaultQuery = `# Welcome to the Postcode Search GraphiQL interface.
 # For example:
 
 {
-  postcodes {
+  postcode {
     # Get data on a single postcode:
     get(value: "DL7 9BG") {
       id

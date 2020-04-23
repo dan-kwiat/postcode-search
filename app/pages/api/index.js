@@ -32,7 +32,7 @@ const parseMatchQuery = x => {
 }
 
 const root = {
-  postcodes: {
+  postcode: {
     get: async ({ value }) => {
       const result = await client.search({
         index: ELASTIC_INDEX,
