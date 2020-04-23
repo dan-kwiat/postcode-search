@@ -1,23 +1,17 @@
-import PostcodeSearch from 'react-postcode'
-import {
-  Drawer,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerSubtitle,
-  DrawerContent
-} from '@rmwc/drawer'
 import CodeBlock from '../components/CodeBlock'
 import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
+import graphQLFetcher from '../lib/graphql-fetcher'
+import QUERY from '../lib/query-examples/basic'
 
-const API_URL = 'https://geo-gql.now.sh/api'
+const PUBLIC_URL = 'https://geo-gql.now.sh'
 
 const requestCode = {
   js: `
 // api-demo.js
 const fetch = require('isomorphic-unfetch')
-const API_URL = '${API_URL}'
-const QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
+const API_URL = '${PUBLIC_URL}/api'
+const QUERY = '${QUERY}'
 
 fetch(\`$\{API_URL}?query=$\{QUERY}\`)
   .then(res => res.json())
@@ -35,8 +29,8 @@ fetch(\`$\{API_URL}?query=$\{QUERY}\`)
   python: `
 # api-demo.py
 import requests
-API_URL = '${API_URL}'
-QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
+API_URL = '${PUBLIC_URL}/api'
+QUERY = '${QUERY}'
 
 try:
     res = requests.get(API_URL, params={ 'query': QUERY })
@@ -50,34 +44,16 @@ except Exception as e:
   `,
   shell: `
 # api-demo.sh
-API_URL='${API_URL}'
-QUERY='{ postcodes { suggest(prefix: "SE23") { id } } }'
+API_URL='${PUBLIC_URL}/api'
+QUERY='${QUERY}'
 curl -g "$API_URL?query=$QUERY" | json_pp
   `,
 }
 
-const responseCode = `
-{
-  "data": {
-    "postcodes": {
-      "suggest":[
-        { "id": "SE23 1AA" },
-        { "id": "SE23 1AD" },
-        { "id": "SE23 1AE" },
-        { "id": "SE23 1AF" },
-        { "id": "SE23 1AG" },
-        { "id": "SE23 1AH" },
-        { "id": "SE23 1AL" },
-        { "id": "SE23 1AN" },
-        { "id": "SE23 1AR" },
-        { "id": "SE23 1AS" }
-      ]
-    }
-  }
-}
-`
 
-function HomePage() {
+function HomePage({ response }) {
+  console.log('HomePage')
+  console.log('process.env.ELASTIC_INDEX', process.env.ELASTIC_INDEX)
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
@@ -109,10 +85,23 @@ function HomePage() {
       </p>
       <CodeBlock
         language='json'
-        codeString={responseCode}
+        codeString={JSON.stringify(response, null, 2)}
       />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const response = await graphQLFetcher({
+    query: QUERY,
+    baseUrl: PUBLIC_URL,
+  })
+
+  return {
+    props: {
+      response,
+    }
+  }
 }
 
 export default HomePage

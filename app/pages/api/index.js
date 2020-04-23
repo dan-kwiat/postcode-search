@@ -1,17 +1,34 @@
 require('dotenv').config()
+import { Client } from '@elastic/elasticsearch'
 import { graphql, buildSchema } from 'graphql'
-import log from '../../lib/logger'
-import client from '../../lib/elastic-client'
+import bunyan from 'bunyan'
 import schema from '../../lib/schema'
 
 const MAX_QUERY_LENGTH = 10
 
 const {
+  ELASTIC_HOST,
+  ELASTIC_USERNAME,
+  ELASTIC_PASSWORD,
   ELASTIC_INDEX,
 } = process.env
 
-const parseQuery = x => {
+const client = new Client({
+  node: ELASTIC_HOST,
+  auth: {
+    username: ELASTIC_USERNAME,
+    password: ELASTIC_PASSWORD
+  }
+})
+
+const log = bunyan.createLogger({ name: 'main' })
+
+const parsePrefixQuery = x => {
   return x.trimStart().substring(0, MAX_QUERY_LENGTH).replace(/  +/g, ' ').toUpperCase()
+}
+
+const parseMatchQuery = x => {
+  return x.trim().substring(0, MAX_QUERY_LENGTH).replace(/[\W_]+/g, '').toUpperCase()
 }
 
 const root = {
@@ -25,7 +42,7 @@ const root = {
           query: {
             term: {
               match_terms: {
-                value: value.trim().substring(0, MAX_QUERY_LENGTH).replace(/[\W_]+/g, '').toUpperCase(),
+                value: parseMatchQuery(value),
               }
             }
           }
@@ -58,7 +75,7 @@ const root = {
         body: {
           suggest: {
             postcode_suggestion: {
-              prefix: parseQuery(prefix),
+              prefix: parsePrefixQuery(prefix),
               completion : {
                 field : 'suggest',
                 size: 10,

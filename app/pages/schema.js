@@ -2,9 +2,12 @@ import Link from 'next/link'
 import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
 import schema from '../lib/schema'
-import jsonExample from '../lib/response-example.json'
+import graphQLFetcher from '../lib/graphql-fetcher'
+import QUERY from '../lib/query-examples/full'
 
-function Schema() {
+const PUBLIC_URL = 'https://geo-gql.now.sh'
+
+function Schema({ response }) {
   return (
     <div className='centered-content'>
       <Typography use='headline2' tag='h1'>
@@ -17,11 +20,24 @@ function Schema() {
         rows={20}
         samples={[
           { language: 'graphql', label: 'GraphQL', codeString: schema },
-          { language: 'json', label: 'JSON Response Example', codeString: JSON.stringify(jsonExample, null, 2) },
+          { language: 'json', label: 'JSON Response Example', codeString: JSON.stringify(response, null, 2) },
         ]}
       />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const response = await graphQLFetcher({
+    query: QUERY,
+    baseUrl: PUBLIC_URL,
+  })
+
+  return {
+    props: {
+      response,
+    }
+  }
 }
 
 export default Schema
