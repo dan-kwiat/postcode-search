@@ -1,18 +1,36 @@
 # Postcode Search: Data
 
+
 ## Requirements
 
 - Node v10
+- Yarn
+
 
 ## Installing
 
 - `yarn`
 - `cp .env-example .env` and fill in missing values in `.env`
 
-## Downloading & Unzipping NSPL data
 
-- `yarn postcode-download`
+## Postcodes
 
-## Uploading to Elasticsearch Index
+```bash
+# Download & unzip
+yarn postcode-download
 
-- `yarn postcode-upload`
+# Upload to Elasticsearch
+yarn postcode-upload
+```
+
+
+## Local Authority Districts
+
+```bash
+# Download
+yarn lad-download
+
+# Upload to Elasticsearch
+yarn lad-upload
+```
+

@@ -5,6 +5,7 @@
   "scripts": {
     "postcode-download": "node postcode/download/index.js | bunyan",
     "postcode-upload": "node postcode/upload/index.js | bunyan",
+    "lad-download": "node local-authority-district/download/index.js | bunyan",
     "lad-upload": "node local-authority-district/upload/index.js | bunyan"
   },
   "author": "",
