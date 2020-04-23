@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "6.x",
     "bunyan": "^1.8.12",
-    "elasticsearch": "^16.6.0",
     "graphql": "^14.5.8"
   }
 }
