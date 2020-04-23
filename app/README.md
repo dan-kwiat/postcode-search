@@ -28,7 +28,7 @@ yarn dev
 ## Deploying
 
 - Install [Vercel Now CLI](https://vercel.com/download): `yarn global add now`
-- Set Preview / Production [environment variables in Vercel](https://vercel.com/docs/v2/build-step#environment-variables) (use the same variable names defined in [.env](./.env))
+- Set Preview / Production [environment variables in Vercel](https://vercel.com/docs/v2/build-step#environment-variables) (use the same variable names defined in [.env-example](./.env-example))
 
 
 ```bash
