@@ -66,6 +66,35 @@ const fullQuery = `{
     get(value: "SW1A 0AA") ${postcodeFields}
     suggest(prefix: "SW1A 0AA") ${postcodeFields}
   }
+  localAuthority {
+    get(
+      point: {
+        lat: 51.5085336,
+        lon: -0.1254484
+      }
+    ) {
+      id
+      geoJSON {
+        type
+        properties {
+          objectid
+          lad19cd
+          lad19nm
+          lad19nmw
+          bng_e
+          bng_n
+          long
+          lat
+          st_areashape
+          st_lengthshape
+        }
+        geometry {
+          type
+          coordinates
+        }
+      }
+    }
+  }
 }`
 
 export default fullQuery

@@ -13,7 +13,7 @@ const QUERY_GET = `
 query REACT_POSTCODE_GET(
   $value: String!
 ) {
-  postcodes {
+  postcode {
     get(value: $value) {
       id
       active
@@ -84,7 +84,7 @@ query REACT_POSTCODE_SUGGEST(
   $prefix: String!
   $boostGeo: GeoInput
 ) {
-  postcodes {
+  postcode {
     suggest(
       prefix: $prefix
       boostGeo: $boostGeo
@@ -184,12 +184,12 @@ const PostcodeSearch = ({
           errorMessage({
             error,
             loading,
-            empty: data ? (data.postcodes.suggest.length === 0) : true,
+            empty: data ? (data.postcode.suggest.length === 0) : true,
             searchTerm: debouncedInputValue,
           })
         }
         inputValue={inputValue}
-        items={data ? data.postcodes.suggest.map(mapItem) : []}
+        items={data ? data.postcode.suggest.map(mapItem) : []}
         label={label}
         leadingIcon={<SearchSVG />}
         loading={loading}

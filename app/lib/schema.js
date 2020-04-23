@@ -76,8 +76,45 @@ type PostcodeQuery {
     prefix: String!
   ): [Postcode]
 }
+enum BoundaryPrecision {
+  "Ultra Generalised (500m)"
+  BUC
+}
+scalar Coordinates
+type LocalAuthorityProperties {
+  objectid: Int
+  lad19cd: String
+  lad19nm: String
+  lad19nmw: String
+  bng_e: Int
+  bng_n: Int
+  long: Float
+  lat: Float
+  st_areashape: Float
+  st_lengthshape: Float
+}
+type GeoJSONGeometry {
+  type: String
+  coordinates: Coordinates
+}
+type LocalAuthorityGeoJSON {
+  type: String
+  geometry: GeoJSONGeometry
+  properties: LocalAuthorityProperties
+}
+type LocalAuthority {
+  id: ID
+  geoJSON: LocalAuthorityGeoJSON
+}
+type LocalAuthorityQuery {
+  get(
+    point: GeoInput
+    precision: BoundaryPrecision = BUC
+  ): LocalAuthority
+}
 type Query {
   postcode: PostcodeQuery
+  localAuthority: LocalAuthorityQuery
 }
 `
 
