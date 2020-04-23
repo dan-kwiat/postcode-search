@@ -35,7 +35,7 @@ const ReactPostcodeDemo = () => {
             setOpen(true)
           }}
           outlined={false}
-          apiUrl={process.env.API_URL}
+          apiUrl='/api'
         />
         <SimpleDialog
           title="Selected Postcode"

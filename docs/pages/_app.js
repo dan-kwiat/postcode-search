@@ -62,7 +62,7 @@ export default function MyApp({ Component, pageProps }) {
   const [open, setOpen] = useState(true)
   useEffect(() => {
     // hack to trigger cold start on mounting
-    fetch(process.env.API_URL).catch(e => {})
+    fetch('/api').catch(e => {})
   }, [])
   return (
     <div>

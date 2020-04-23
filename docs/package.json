@@ -1,5 +1,5 @@
 {
-  "name": "postcode-search-docs",
+  "name": "geo-gql-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,11 +7,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now"
+    "deploy:production": "now --prod",
+    "deploy:preview": "now"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "6.x",
     "@rmwc/chip": "^5.7.2",
     "@rmwc/dialog": "^5.7.2",
     "@rmwc/drawer": "^5.7.2",
@@ -22,9 +24,11 @@
     "@rmwc/top-app-bar": "^5.7.2",
     "@rmwc/typography": "^5.7.2",
     "babel-plugin-prismjs": "^2.0.1",
+    "bunyan": "^1.8.12",
     "copy-to-clipboard": "^3.2.0",
+    "dotenv": "^8.2.0",
     "graphiql": "^0.17.5",
-    "graphql": "^14.6.0",
+    "graphql": "14.x",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.2.1",
     "prismjs": "^1.19.0",

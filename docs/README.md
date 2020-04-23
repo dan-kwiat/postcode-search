@@ -1,23 +1,40 @@
-# Postcode Search: Docs
+# GeoGQL App (Web + API)
+
+
+## Requirements
+
+- Node
+- Yarn
+
 
 ## Installing
 
-- `yarn`
+```bash
+yarn
+```
+
 
 ## Developing
 
-- `yarn dev`
+```bash
+cp .env-example .env
+# Edit contents of .env to set development environment variables
+# These are only accessible to the API route
 
-Now visit `http://localhost:3000`
+yarn dev
+```
+
 
 ## Deploying
 
-First ensure that the environment variables in `next.config.js` are set correctly.
+- Install [Vercel Now CLI](https://vercel.com/download): `yarn global add now`
+- Set Preview / Production [environment variables in Vercel](https://vercel.com/docs/v2/build-step#environment-variables) (use the same variable names defined in [.env](./.env))
 
-Deploy to personal staging domain `https://postcode-search-docs.your-name.now.sh`:
 
-- `yarn deploy`
+```bash
+# Deploy to personal staging domain
+yarn deploy:preview
 
-Deploy to production:
-
-- `yarn deploy --prod`
+# Or production
+yarn deploy:production
+```

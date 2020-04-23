@@ -7,7 +7,7 @@ function graphQLFetcher(params) {
   const variables = JSON.stringify(params.variables || {})
   const operationName = params.operationName || ''
 
-  return fetch(`${process.env.API_URL}?query=${query}&variables=${variables}&operationName=${operationName}`)
+  return fetch(`/api?query=${query}&variables=${variables}&operationName=${operationName}`)
     .then(response => response.json())
 }
 

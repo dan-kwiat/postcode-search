@@ -1,4 +1,5 @@
 {
-  "name": "postcode-search-docs",
-  "version": 2
+  "name": "geo-gql",
+  "version": 2,
+  "regions": ["bru1", "lhr1"]
 }

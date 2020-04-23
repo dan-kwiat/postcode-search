@@ -10,11 +10,13 @@ import CodeBlock from '../components/CodeBlock'
 import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
 
+const API_URL = 'https://geo-gql.now.sh/api'
+
 const requestCode = {
   js: `
 // api-demo.js
 const fetch = require('isomorphic-unfetch')
-const API_URL = '${process.env.API_URL}'
+const API_URL = '${API_URL}'
 const QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
 
 fetch(\`$\{API_URL}?query=$\{QUERY}\`)
@@ -33,7 +35,7 @@ fetch(\`$\{API_URL}?query=$\{QUERY}\`)
   python: `
 # api-demo.py
 import requests
-API_URL = '${process.env.API_URL}'
+API_URL = '${API_URL}'
 QUERY = '{ postcodes { suggest(prefix: "SE23") { id } } }'
 
 try:
@@ -48,7 +50,7 @@ except Exception as e:
   `,
   shell: `
 # api-demo.sh
-API_URL='${process.env.API_URL}'
+API_URL='${API_URL}'
 QUERY='{ postcodes { suggest(prefix: "SE23") { id } } }'
 curl -g "$API_URL?query=$QUERY" | json_pp
   `,
