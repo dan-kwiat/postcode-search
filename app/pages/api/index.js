@@ -124,12 +124,14 @@ const localAuthority = {
       id.map(x => ({ term: { id: x } }))
     ) : []
 
+    const precisionLowerCase = precision.toLowerCase()
     let result
     try {
       result = await client.search({
         index: ELASTIC_INDEX_LOCAL_AUTHORITY,
         from: 0,
         size: 10,
+        _source: ['id', `${precisionLowerCase}.geojson`],
         body: {
           query: {
             bool: {
@@ -149,7 +151,7 @@ const localAuthority = {
     try {
       return result.body.hits.hits.map(({ _source }) => ({
         id: _source.id,
-        geoJSON: _source[precision.toLowerCase()].geojson,
+        geoJSON: _source[precisionLowerCase].geojson,
       }))
     } catch(e) {
       console.log(e)
