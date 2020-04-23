@@ -104,7 +104,7 @@ const localAuthority = {
     if (!ELASTIC_INDEX_POSTCODE) {
       throw 'ELASTIC_INDEX_LOCAL_AUTHORITY is undefined'
     }
-    if (!point && (!id || id.length === 0)) return null
+    if (!point && (!id || id.length === 0)) return []
 
     const highestPrecision = 'buc' // should update this if we add more precisions to index
 
@@ -155,7 +155,7 @@ const localAuthority = {
       }))
     } catch(e) {
       console.log(e)
-      return null // should we return null or throw error?
+      return [] // should we return null or throw error?
     }
   }
 }
