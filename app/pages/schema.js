@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import MultiCodeBlock from '../components/MultiCodeBlock'
 import { Typography } from '@rmwc/typography'
-import schema from '../graphql/schema'
-import jsonExample from '../graphql/schema-example.json'
+import schema from '../lib/schema'
+import jsonExample from '../lib/response-example.json'
 
 function Schema() {
   return (

@@ -1,6 +1,6 @@
 import GraphiQL from 'graphiql'
 import fetch from 'isomorphic-fetch'
-import defaultQuery from '../graphql/default-graphiql'
+import defaultQuery from '../lib/default-graphiql'
 
 function graphQLFetcher(params) {
   const query = encodeURIComponent(params.query)

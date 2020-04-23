@@ -1,8 +1,8 @@
 require('dotenv').config()
-const { graphql } = require('graphql')
-const log = require('../../lib-api/logger')
-const client = require('../../lib-api/elastic-client')
-const schema = require('../../lib-api/schema')
+import { graphql, buildSchema } from 'graphql'
+import log from '../../lib/logger'
+import client from '../../lib/elastic-client'
+import schema from '../../lib/schema'
 
 const MAX_QUERY_LENGTH = 10
 
@@ -85,7 +85,7 @@ module.exports = async (req, res) => {
   // set Cache-Control header?
   try {
     const response = await graphql(
-      schema,
+      buildSchema(schema),
       req.query.query,
       root,
       null,
