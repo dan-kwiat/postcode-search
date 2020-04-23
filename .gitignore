@@ -4,6 +4,7 @@
 *.xlsx
 *.pdf
 *.txt
+*.geojson
 
 # Logs
 logs
