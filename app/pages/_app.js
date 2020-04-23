@@ -77,7 +77,7 @@ export default function MyApp({ Component, pageProps }) {
         <TopAppBarRow>
           <TopAppBarSection alignStart>
             <TopAppBarNavigationIcon icon="menu" onClick={() => setOpen(!open)} />
-            <TopAppBarTitle><Link href='/'><a>Postcode GQL</a></Link></TopAppBarTitle>
+            <TopAppBarTitle><Link href='/'><a>GeoGQL</a></Link></TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
             <TopAppBarActionItem

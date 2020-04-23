@@ -59,8 +59,7 @@ function HomePage({ goodResponse, badResponse }) {
         Getting Started
       </Typography>
       <Typography use='body1'>
-        Postcode GQL is a GraphQL API for searching UK postcodes.
-        If you'd prefer a RESTful service we recommend using <a target='_blank' href='https://postcodes.io'>Postcodes.io</a>.
+        GeoGQL is a GraphQL API for searching UK postcodes and other geographical data.
       </Typography>
       <Typography use='headline4' tag='h3'>
         Features:
