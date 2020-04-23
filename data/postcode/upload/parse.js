@@ -92,17 +92,20 @@ const postcodeDocParser = ({
         "ru11ind": rus[jsonObj.ru11ind],
       },
     }
-    return {
-      _id: jsonObj.pcd,
-      doc,
-    }
+    return doc
+
+    // {
+    //   _id: jsonObj.pcd,
+    //   doc,
+    // }
   } catch(e) {
     log.error('Failed to parse postcode object: ')
     log.error(jsonObj)
-    return {
-      _id: null,
-      doc: null,
-    }
+    return null
+    // return {
+    //   _id: null,
+    //   doc: null,
+    // }
   }
 }
 

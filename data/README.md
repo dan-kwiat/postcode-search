@@ -1,5 +1,9 @@
 # Postcode Search: Data
 
+## Requirements
+
+- Node v10
+
 ## Installing
 
 - `yarn`
@@ -7,8 +11,8 @@
 
 ## Downloading & Unzipping NSPL data
 
-- `yarn download-postcode`
+- `yarn postcode-download`
 
 ## Uploading to Elasticsearch Index
 
-- `yarn upload-postcode`
+- `yarn postcode-upload`

@@ -1,20 +1,25 @@
 require('dotenv').config()
-const csvToDict = require('../lib/csv-to-dict')
-const csvToElastic = require('../lib/csv-to-elastic')
-const log = require('../lib/logger')
-const { createIndex } = require('../lib/elastic')
-const postcodeDocParser = require('./postcode-doc-parser')
-const postcodeMappings = require('./postcode-mappings')
+const csvToDict = require('../../lib/csv-to-dict')
+const csvToElastic = require('../lib/../csv-to-elastic')
+const log = require('../../lib/logger')
+const { client } = require('../../lib/elastic')
+const parse = require('./parse')
+const mappings = require('./mappings')
+const settings = require('./settings')
 
 const NUM_POSTCODES_ESTIMATE = 2636604
 
+const {
+  ELASTIC_POSTCODES_INDEX,
+} = process.env
+
 async function esIndex() {
   try {
-    await createIndex({
-      indexName: process.env.ELASTIC_POSTCODES_INDEX,
-      settings: {},
-      mappings: postcodeMappings,
+    await client.indices.create({
+      index: ELASTIC_POSTCODES_INDEX,
+      body: { mappings, settings }
     })
+
     const ccgs = await csvToDict({
       filePath: process.env.NSPL_CCGS_CSV,
       keyColumn: 'CCG19CD',
@@ -65,7 +70,7 @@ async function esIndex() {
       keyColumn: 'EER10CD',
       valueColumn: 'EER10NM',
     })
-    const docParser = postcodeDocParser({
+    const docParser = parse({
       ccgs,
       ctys,
       eers,
@@ -81,7 +86,7 @@ async function esIndex() {
       docParser,
       batchSize: process.env.ELASTIC_BULK_BATCH_SIZE,
       filePath: process.env.NSPL_POSTCODES_CSV,
-      indexName: process.env.ELASTIC_POSTCODES_INDEX,
+      index: process.env.ELASTIC_POSTCODES_INDEX,
       numRowsEstimate: NUM_POSTCODES_ESTIMATE,
     })
   } catch(e) {

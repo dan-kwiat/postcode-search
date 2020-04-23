@@ -6,7 +6,7 @@ const { bulkIndex } = require('./elastic')
 async function csvToElastic({
   filePath,
   batchSize,
-  indexName,
+  index,
   docParser,
   numRowsEstimate,
 }) {
@@ -24,7 +24,8 @@ async function csvToElastic({
 
     const batchHandler = (docs, counter) => {
       progressBar.update(counter)
-      return bulkIndex({ indexName, docs, docParser })
+      const parsedDocs = docs.map(docParser)
+      return bulkIndex({ index, docs })
     }
 
     const totalCount = await processCsv({ filePath, batchSize, batchHandler })

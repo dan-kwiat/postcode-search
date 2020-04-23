@@ -3,17 +3,18 @@
   "version": "1.1.0",
   "description": "",
   "scripts": {
-    "download-postcode": "node download/postcode.js | bunyan",
-    "upload-postcode": "node upload/postcode.js | bunyan"
+    "postcode-download": "node postcode/download/index.js | bunyan",
+    "postcode-upload": "node postcode/upload/index.js | bunyan",
+    "lad-upload": "node local-authority-district/upload/index.js | bunyan"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "6.x",
     "bunyan": "^1.8.12",
     "cli-progress": "^3.5.0",
     "csv-parser": "^2.3.2",
     "dotenv": "^8.2.0",
-    "elasticsearch": "^16.6.0",
     "node-fetch": "^2.6.0",
     "unzipper": "^0.10.7"
   }

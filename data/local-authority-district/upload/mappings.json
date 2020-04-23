@@ -1,0 +1,86 @@
+{
+  "_doc": {
+    "dynamic": "strict",
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "buc": {
+        "properties": {
+          "geoshape": {
+            "type": "geo_shape"
+          },
+          "geojson": {
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "properties": {
+                "properties": {
+                  "objectid": {
+                    "type": "integer"
+                  },
+                  "lad19cd": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "lad19nm": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "lad19nmw": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "bng_e": {
+                    "type": "integer"
+                  },
+                  "bng_n": {
+                    "type": "integer"
+                  },
+                  "long": {
+                    "type": "double"
+                  },
+                  "lat": {
+                    "type": "double"
+                  },
+                  "st_areashape": {
+                    "type": "double"
+                  },
+                  "st_lengthshape": {
+                    "type": "double"
+                  }
+                }
+              },
+              "geometry": {
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "coordinates": {
+                    "type": "double"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

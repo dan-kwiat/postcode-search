@@ -1,47 +1,38 @@
 const client = require('./client')
 
-const bulkPromise = ops => {
-  if (ops.length === 0) {
-    return Promise.resolve()
-  }
-  return new Promise((resolve, reject) => {
-    client.bulk(
-      { body: ops },
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-        if (res.errors) {
-          const errItems = res.items.filter(x => x.index && x.index.error).map(x => x.index.error) // assume ops were type 'update'
-          return reject(errItems)
-        }
-        return resolve(res)
+// Elasticsearch _id is set to doc.id (if present, otherwise ES generates an _id)
+const bulkIndex = async ({ index, docs }) => {
+  const body = docs.reduce((agg, doc) => [
+    ...agg,
+    {
+      index: {
+        _id: doc.id,
+        _index: index,
+        _type: '_doc',
       }
-    )
-  })
-}
+    },
+    doc
+  ], [])
 
-const bulkIndexOps = ({ indexName, docs, docParser }) => {
-  return docs.reduce((agg, rawDoc) => {
-    const { _id, doc } = docParser(rawDoc)
-    return _id ? [
-      ...agg,
-      {
-        index: {
-          _id,
-          _index: indexName,
-          _type: '_doc',
-          retry_on_conflict: 2,
-        }
-      },
-      doc,
-    ] : agg
-  }, [])
-}
+  const { body: bulkResponse } = await client.bulk({ refresh: true, body })
 
-const bulkIndex = ({ indexName, docs, docParser }) => {
-  const ops = bulkIndexOps({ indexName, docs, docParser })
-  return bulkPromise(ops)
+  if (bulkResponse.errors) {
+    const erroredDocuments = []
+    bulkResponse.items.forEach((action, i) => {
+      const operation = Object.keys(action)[0]
+      if (action[operation].error) {
+        erroredDocuments.push({
+          status: action[operation].status,
+          error: action[operation].error,
+          operation: body[i * 2],
+          document: body[i * 2 + 1]
+        })
+      }
+    })
+    throw JSON.stringify(erroredDocuments)
+  }
+
+  return
 }
 
 module.exports = bulkIndex
