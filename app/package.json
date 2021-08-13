@@ -30,7 +30,7 @@
     "graphiql": "^0.17.5",
     "graphql": "14.x",
     "isomorphic-fetch": "^2.2.1",
-    "next": "^9.3.5",
+    "next": "^11.1.0",
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
